@@ -1,15 +1,39 @@
 {
-  "generatedAt": "2026-07-08T00:00:00.000Z",
-  "groupingNote": "PLACEHOLDER FILE. Real data is written by scripts/fetch-jira-data.js via the GitHub Action. This file only exists so the dashboard has something to render before the first workflow run.",
+  "generatedAt": "2026-07-08T17:03:20.617Z",
+  "groupingNote": "Metrics are grouped by real Jira project (no Pod/DM field exists yet). Update PROJECTS + grouping in fetch-jira-data.js once Pods/DMs are tracked in Jira.",
   "projects": [
-    { "key": "INV", "wipByStatus": {}, "wipTotal": 0, "cycleTimeDays": { "avg": null, "median": null, "sampleSize": 0 }, "throughput7d": 0, "throughput30d": 0, "qualityLoopbackRatePct": null, "aiLeverageRatePct": null, "openBlockers": 0 },
-    { "key": "APCOM", "wipByStatus": {}, "wipTotal": 0, "cycleTimeDays": { "avg": null, "median": null, "sampleSize": 0 }, "throughput7d": 0, "throughput30d": 0, "qualityLoopbackRatePct": null, "aiLeverageRatePct": null, "openBlockers": 0 },
-    { "key": "EMP", "wipByStatus": {}, "wipTotal": 0, "cycleTimeDays": { "avg": null, "median": null, "sampleSize": 0 }, "throughput7d": 0, "throughput30d": 0, "qualityLoopbackRatePct": null, "aiLeverageRatePct": null, "openBlockers": 0 },
-    { "key": "CORE", "wipByStatus": {}, "wipTotal": 0, "cycleTimeDays": { "avg": null, "median": null, "sampleSize": 0 }, "throughput7d": 0, "throughput30d": 0, "qualityLoopbackRatePct": null, "aiLeverageRatePct": null, "openBlockers": 0 },
-    { "key": "MOBILE", "wipByStatus": {}, "wipTotal": 0, "cycleTimeDays": { "avg": null, "median": null, "sampleSize": 0 }, "throughput7d": 0, "throughput30d": 0, "qualityLoopbackRatePct": null, "aiLeverageRatePct": null, "openBlockers": 0 },
-    { "key": "BOA", "wipByStatus": {}, "wipTotal": 0, "cycleTimeDays": { "avg": null, "median": null, "sampleSize": 0 }, "throughput7d": 0, "throughput30d": 0, "qualityLoopbackRatePct": null, "aiLeverageRatePct": null, "openBlockers": 0 },
-    { "key": "EXP", "wipByStatus": {}, "wipTotal": 0, "cycleTimeDays": { "avg": null, "median": null, "sampleSize": 0 }, "throughput7d": 0, "throughput30d": 0, "qualityLoopbackRatePct": null, "aiLeverageRatePct": null, "openBlockers": 0 },
-    { "key": "HR", "wipByStatus": {}, "wipTotal": 0, "cycleTimeDays": { "avg": null, "median": null, "sampleSize": 0 }, "throughput7d": 0, "throughput30d": 0, "qualityLoopbackRatePct": null, "aiLeverageRatePct": null, "openBlockers": 0 }
+    {
+      "key": "INV",
+      "error": "Jira search failed: 410 {\"errorMessages\":[\"The requested API has been removed. Please migrate to the /rest/api/3/search/jql API. A full migration guideline is available at https://developer.atlassian.com/changelog/#CHANGE-2046\"],\"errors\":{}}"
+    },
+    {
+      "key": "APCOM",
+      "error": "Jira search failed: 410 {\"errorMessages\":[\"The requested API has been removed. Please migrate to the /rest/api/3/search/jql API. A full migration guideline is available at https://developer.atlassian.com/changelog/#CHANGE-2046\"],\"errors\":{}}"
+    },
+    {
+      "key": "EMP",
+      "error": "Jira search failed: 410 {\"errorMessages\":[\"The requested API has been removed. Please migrate to the /rest/api/3/search/jql API. A full migration guideline is available at https://developer.atlassian.com/changelog/#CHANGE-2046\"],\"errors\":{}}"
+    },
+    {
+      "key": "CORE",
+      "error": "Jira search failed: 410 {\"errorMessages\":[\"The requested API has been removed. Please migrate to the /rest/api/3/search/jql API. A full migration guideline is available at https://developer.atlassian.com/changelog/#CHANGE-2046\"],\"errors\":{}}"
+    },
+    {
+      "key": "MOBILE",
+      "error": "Jira search failed: 410 {\"errorMessages\":[\"The requested API has been removed. Please migrate to the /rest/api/3/search/jql API. A full migration guideline is available at https://developer.atlassian.com/changelog/#CHANGE-2046\"],\"errors\":{}}"
+    },
+    {
+      "key": "BOA",
+      "error": "Jira search failed: 410 {\"errorMessages\":[\"The requested API has been removed. Please migrate to the /rest/api/3/search/jql API. A full migration guideline is available at https://developer.atlassian.com/changelog/#CHANGE-2046\"],\"errors\":{}}"
+    },
+    {
+      "key": "EXP",
+      "error": "Jira search failed: 410 {\"errorMessages\":[\"The requested API has been removed. Please migrate to the /rest/api/3/search/jql API. A full migration guideline is available at https://developer.atlassian.com/changelog/#CHANGE-2046\"],\"errors\":{}}"
+    },
+    {
+      "key": "HR",
+      "error": "Jira search failed: 410 {\"errorMessages\":[\"The requested API has been removed. Please migrate to the /rest/api/3/search/jql API. A full migration guideline is available at https://developer.atlassian.com/changelog/#CHANGE-2046\"],\"errors\":{}}"
+    }
   ],
   "manual": {
     "focusIntegrity": null,
