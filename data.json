@@ -1,0 +1,19 @@
+{
+  "generatedAt": "2026-07-08T00:00:00.000Z",
+  "groupingNote": "PLACEHOLDER FILE. Real data is written by scripts/fetch-jira-data.js via the GitHub Action. This file only exists so the dashboard has something to render before the first workflow run.",
+  "projects": [
+    { "key": "INV", "wipByStatus": {}, "wipTotal": 0, "cycleTimeDays": { "avg": null, "median": null, "sampleSize": 0 }, "throughput7d": 0, "throughput30d": 0, "qualityLoopbackRatePct": null, "aiLeverageRatePct": null, "openBlockers": 0 },
+    { "key": "APCOM", "wipByStatus": {}, "wipTotal": 0, "cycleTimeDays": { "avg": null, "median": null, "sampleSize": 0 }, "throughput7d": 0, "throughput30d": 0, "qualityLoopbackRatePct": null, "aiLeverageRatePct": null, "openBlockers": 0 },
+    { "key": "EMP", "wipByStatus": {}, "wipTotal": 0, "cycleTimeDays": { "avg": null, "median": null, "sampleSize": 0 }, "throughput7d": 0, "throughput30d": 0, "qualityLoopbackRatePct": null, "aiLeverageRatePct": null, "openBlockers": 0 },
+    { "key": "CORE", "wipByStatus": {}, "wipTotal": 0, "cycleTimeDays": { "avg": null, "median": null, "sampleSize": 0 }, "throughput7d": 0, "throughput30d": 0, "qualityLoopbackRatePct": null, "aiLeverageRatePct": null, "openBlockers": 0 },
+    { "key": "MOBILE", "wipByStatus": {}, "wipTotal": 0, "cycleTimeDays": { "avg": null, "median": null, "sampleSize": 0 }, "throughput7d": 0, "throughput30d": 0, "qualityLoopbackRatePct": null, "aiLeverageRatePct": null, "openBlockers": 0 },
+    { "key": "BOA", "wipByStatus": {}, "wipTotal": 0, "cycleTimeDays": { "avg": null, "median": null, "sampleSize": 0 }, "throughput7d": 0, "throughput30d": 0, "qualityLoopbackRatePct": null, "aiLeverageRatePct": null, "openBlockers": 0 },
+    { "key": "EXP", "wipByStatus": {}, "wipTotal": 0, "cycleTimeDays": { "avg": null, "median": null, "sampleSize": 0 }, "throughput7d": 0, "throughput30d": 0, "qualityLoopbackRatePct": null, "aiLeverageRatePct": null, "openBlockers": 0 },
+    { "key": "HR", "wipByStatus": {}, "wipTotal": 0, "cycleTimeDays": { "avg": null, "median": null, "sampleSize": 0 }, "throughput7d": 0, "throughput30d": 0, "qualityLoopbackRatePct": null, "aiLeverageRatePct": null, "openBlockers": 0 }
+  ],
+  "manual": {
+    "focusIntegrity": null,
+    "teamPulse": null,
+    "note": "Focus Integrity and Team Pulse are not derivable from Jira data. Populate manually (e.g. from a survey tool) until a data source is identified."
+  }
+}
