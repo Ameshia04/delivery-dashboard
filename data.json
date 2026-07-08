@@ -1,38 +1,212 @@
 {
-  "generatedAt": "2026-07-08T18:35:24.199Z",
+  "generatedAt": "2026-07-08T18:40:28.422Z",
   "groupingNote": "Metrics are grouped by real Jira project (no Pod/DM field exists yet). Update PROJECTS + grouping in fetch-jira-data.js once Pods/DMs are tracked in Jira.",
   "projects": [
     {
       "key": "INV",
-      "error": "Jira search failed: 400 {\"errorMessages\":[\"Invalid request payload. Refer to the REST API documentation and try again.\"]}"
+      "wipByStatus": {
+        "Backlog": 53,
+        "Ready for Development": 9,
+        "Ready for Acceptance": 3,
+        "In Development": 3,
+        "To Do": 25,
+        "In QA": 3,
+        "Ready for QA": 2,
+        "In Progress": 14
+      },
+      "wipTotal": 112,
+      "cycleTimeDays": {
+        "avg": 47.1,
+        "median": 22.2,
+        "sampleSize": 36
+      },
+      "throughput7d": 9,
+      "throughput30d": 41,
+      "qualityLoopbackRatePct": 39,
+      "aiLeverageRatePct": 0,
+      "openBlockers": 2
     },
     {
       "key": "APCOM",
-      "error": "Jira search failed: 400 {\"errorMessages\":[\"Invalid request payload. Refer to the REST API documentation and try again.\"]}"
+      "wipByStatus": {
+        "Backlog": 24,
+        "Ready for QA": 11,
+        "Acceptance": 1,
+        "Ready for Code Review": 1,
+        "Ready for Development": 16,
+        "In Development": 1,
+        "To Do": 7,
+        "In Progress": 18,
+        "Estimate": 2,
+        "Ready for Acceptance": 1,
+        "In QA": 2
+      },
+      "wipTotal": 84,
+      "cycleTimeDays": {
+        "avg": 13.4,
+        "median": 10.4,
+        "sampleSize": 57
+      },
+      "throughput7d": 7,
+      "throughput30d": 59,
+      "qualityLoopbackRatePct": 27.1,
+      "aiLeverageRatePct": 1.7,
+      "openBlockers": 0
     },
     {
       "key": "EMP",
-      "error": "Jira search failed: 400 {\"errorMessages\":[\"Invalid request payload. Refer to the REST API documentation and try again.\"]}"
+      "wipByStatus": {
+        "In QA": 1,
+        "Estimate": 3,
+        "In Development": 1,
+        "Backlog": 13,
+        "To Do": 2,
+        "Ready for Code Review": 1,
+        "Ready for QA": 1,
+        "In Progress": 7
+      },
+      "wipTotal": 29,
+      "cycleTimeDays": {
+        "avg": 10.3,
+        "median": 6.5,
+        "sampleSize": 26
+      },
+      "throughput7d": 2,
+      "throughput30d": 42,
+      "qualityLoopbackRatePct": 31,
+      "aiLeverageRatePct": 0,
+      "openBlockers": 0
     },
     {
       "key": "CORE",
-      "error": "Jira search failed: 400 {\"errorMessages\":[\"Invalid request payload. Refer to the REST API documentation and try again.\"]}"
+      "wipByStatus": {
+        "Backlog": 116,
+        "To Do": 26,
+        "Ready for Development": 34,
+        "In QA": 5,
+        "In Development": 4,
+        "Ready for QA": 24,
+        "Estimate": 3,
+        "Ready for Code Review": 1,
+        "Ready for Acceptance": 4,
+        "In Progress": 1,
+        "Code Review": 1
+      },
+      "wipTotal": 219,
+      "cycleTimeDays": {
+        "avg": 24.8,
+        "median": 6.4,
+        "sampleSize": 48
+      },
+      "throughput7d": 3,
+      "throughput30d": 80,
+      "qualityLoopbackRatePct": 21.3,
+      "aiLeverageRatePct": 0,
+      "openBlockers": 0
     },
     {
       "key": "MOBILE",
-      "error": "Jira search failed: 400 {\"errorMessages\":[\"Invalid request payload. Refer to the REST API documentation and try again.\"]}"
+      "wipByStatus": {
+        "Ready for Design": 1,
+        "Backlog": 6,
+        "To Do": 20,
+        "Ready for Development": 4,
+        "In Development": 3,
+        "Ready for Code Review": 5,
+        "Code Review": 3,
+        "Ready for QA": 2,
+        "In QA": 4,
+        "In Progress": 11
+      },
+      "wipTotal": 59,
+      "cycleTimeDays": {
+        "avg": 21.7,
+        "median": 7.2,
+        "sampleSize": 42
+      },
+      "throughput7d": 9,
+      "throughput30d": 45,
+      "qualityLoopbackRatePct": 24.4,
+      "aiLeverageRatePct": 0,
+      "openBlockers": 0
     },
     {
       "key": "BOA",
-      "error": "Jira search failed: 400 {\"errorMessages\":[\"Invalid request payload. Refer to the REST API documentation and try again.\"]}"
+      "wipByStatus": {
+        "Estimate": 1,
+        "Ready for Acceptance": 6,
+        "Ready for QA": 13,
+        "Backlog": 107,
+        "Ready for Development": 27,
+        "To Do": 11,
+        "In QA": 2,
+        "In Progress": 11,
+        "In Development": 1
+      },
+      "wipTotal": 179,
+      "cycleTimeDays": {
+        "avg": 11.4,
+        "median": 6.6,
+        "sampleSize": 36
+      },
+      "throughput7d": 0,
+      "throughput30d": 39,
+      "qualityLoopbackRatePct": 17.9,
+      "aiLeverageRatePct": 0,
+      "openBlockers": 0
     },
     {
       "key": "EXP",
-      "error": "Jira search failed: 400 {\"errorMessages\":[\"Invalid request payload. Refer to the REST API documentation and try again.\"]}"
+      "wipByStatus": {
+        "Ready for Development": 2,
+        "Backlog": 20,
+        "Ready for Code Review": 5,
+        "Acceptance": 1,
+        "To Do": 24,
+        "In Development": 2,
+        "Estimate": 2,
+        "In Progress": 7,
+        "In QA": 4,
+        "Design Review": 1,
+        "Ready for QA": 1
+      },
+      "wipTotal": 69,
+      "cycleTimeDays": {
+        "avg": 14.6,
+        "median": 13.9,
+        "sampleSize": 28
+      },
+      "throughput7d": 10,
+      "throughput30d": 30,
+      "qualityLoopbackRatePct": 56.7,
+      "aiLeverageRatePct": 3.3,
+      "openBlockers": 0
     },
     {
       "key": "HR",
-      "error": "Jira search failed: 400 {\"errorMessages\":[\"Invalid request payload. Refer to the REST API documentation and try again.\"]}"
+      "wipByStatus": {
+        "Design Review": 1,
+        "Ready for Design": 1,
+        "In Development": 1,
+        "Ready for Development": 2,
+        "Backlog": 19,
+        "Ready for QA": 8,
+        "To Do": 18,
+        "In QA": 1,
+        "In Progress": 8,
+        "Ready for Code Review": 1
+      },
+      "wipTotal": 60,
+      "cycleTimeDays": {
+        "avg": 17.2,
+        "median": 15.2,
+        "sampleSize": 17
+      },
+      "throughput7d": 2,
+      "throughput30d": 20,
+      "qualityLoopbackRatePct": 50,
+      "aiLeverageRatePct": 0,
+      "openBlockers": 0
     }
   ],
   "manual": {
