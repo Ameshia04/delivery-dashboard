@@ -1,38 +1,38 @@
 {
-  "generatedAt": "2026-07-08T17:03:20.617Z",
+  "generatedAt": "2026-07-08T18:35:24.199Z",
   "groupingNote": "Metrics are grouped by real Jira project (no Pod/DM field exists yet). Update PROJECTS + grouping in fetch-jira-data.js once Pods/DMs are tracked in Jira.",
   "projects": [
     {
       "key": "INV",
-      "error": "Jira search failed: 410 {\"errorMessages\":[\"The requested API has been removed. Please migrate to the /rest/api/3/search/jql API. A full migration guideline is available at https://developer.atlassian.com/changelog/#CHANGE-2046\"],\"errors\":{}}"
+      "error": "Jira search failed: 400 {\"errorMessages\":[\"Invalid request payload. Refer to the REST API documentation and try again.\"]}"
     },
     {
       "key": "APCOM",
-      "error": "Jira search failed: 410 {\"errorMessages\":[\"The requested API has been removed. Please migrate to the /rest/api/3/search/jql API. A full migration guideline is available at https://developer.atlassian.com/changelog/#CHANGE-2046\"],\"errors\":{}}"
+      "error": "Jira search failed: 400 {\"errorMessages\":[\"Invalid request payload. Refer to the REST API documentation and try again.\"]}"
     },
     {
       "key": "EMP",
-      "error": "Jira search failed: 410 {\"errorMessages\":[\"The requested API has been removed. Please migrate to the /rest/api/3/search/jql API. A full migration guideline is available at https://developer.atlassian.com/changelog/#CHANGE-2046\"],\"errors\":{}}"
+      "error": "Jira search failed: 400 {\"errorMessages\":[\"Invalid request payload. Refer to the REST API documentation and try again.\"]}"
     },
     {
       "key": "CORE",
-      "error": "Jira search failed: 410 {\"errorMessages\":[\"The requested API has been removed. Please migrate to the /rest/api/3/search/jql API. A full migration guideline is available at https://developer.atlassian.com/changelog/#CHANGE-2046\"],\"errors\":{}}"
+      "error": "Jira search failed: 400 {\"errorMessages\":[\"Invalid request payload. Refer to the REST API documentation and try again.\"]}"
     },
     {
       "key": "MOBILE",
-      "error": "Jira search failed: 410 {\"errorMessages\":[\"The requested API has been removed. Please migrate to the /rest/api/3/search/jql API. A full migration guideline is available at https://developer.atlassian.com/changelog/#CHANGE-2046\"],\"errors\":{}}"
+      "error": "Jira search failed: 400 {\"errorMessages\":[\"Invalid request payload. Refer to the REST API documentation and try again.\"]}"
     },
     {
       "key": "BOA",
-      "error": "Jira search failed: 410 {\"errorMessages\":[\"The requested API has been removed. Please migrate to the /rest/api/3/search/jql API. A full migration guideline is available at https://developer.atlassian.com/changelog/#CHANGE-2046\"],\"errors\":{}}"
+      "error": "Jira search failed: 400 {\"errorMessages\":[\"Invalid request payload. Refer to the REST API documentation and try again.\"]}"
     },
     {
       "key": "EXP",
-      "error": "Jira search failed: 410 {\"errorMessages\":[\"The requested API has been removed. Please migrate to the /rest/api/3/search/jql API. A full migration guideline is available at https://developer.atlassian.com/changelog/#CHANGE-2046\"],\"errors\":{}}"
+      "error": "Jira search failed: 400 {\"errorMessages\":[\"Invalid request payload. Refer to the REST API documentation and try again.\"]}"
     },
     {
       "key": "HR",
-      "error": "Jira search failed: 410 {\"errorMessages\":[\"The requested API has been removed. Please migrate to the /rest/api/3/search/jql API. A full migration guideline is available at https://developer.atlassian.com/changelog/#CHANGE-2046\"],\"errors\":{}}"
+      "error": "Jira search failed: 400 {\"errorMessages\":[\"Invalid request payload. Refer to the REST API documentation and try again.\"]}"
     }
   ],
   "manual": {
