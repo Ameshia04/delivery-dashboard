@@ -1,0 +1,46 @@
+# Place this file at: .github/workflows/update-dashboard-data.yml in the repo
+#
+# Pulls fresh metrics from Jira on a schedule and commits data.json so the
+# GitHub Pages dashboard (index.html) always shows current numbers.
+#
+# Requires three repo secrets (Settings -> Secrets and variables -> Actions):
+#   JIRA_BASE_URL   e.g. https://apspayroll.atlassian.net
+#   JIRA_EMAIL      Jira account email tied to the API token
+#   JIRA_API_TOKEN  Jira Cloud API token (id.atlassian.com/manage-profile/security/api-tokens)
+
+name: Update Dashboard Data
+
+on:
+  schedule:
+    - cron: "0 */3 * * *" # every 3 hours
+  workflow_dispatch: {} # lets you trigger a manual refresh from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Fetch latest Jira metrics
+        env:
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+        run: node scripts/fetch-jira-data.js
+
+      - name: Commit updated data.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data.json
+          git diff --quiet --cached || git commit -m "Update dashboard data from Jira"
+          git push
