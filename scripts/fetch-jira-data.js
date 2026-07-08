@@ -1,4 +1,3 @@
-
 /**
  * fetch-jira-data.js
  * Place this file at: scripts/fetch-jira-data.js in the GitHub repo.
@@ -26,23 +25,23 @@
  * see https://developer.atlassian.com/changelog/#CHANGE-2046). This new
  * endpoint paginates with nextPageToken instead of startAt.
  */
- 
+
 const PROJECTS = ["INV", "APCOM", "EMP", "CORE", "MOBILE", "BOA", "EXP", "HR"];
- 
+
 const BASE_URL = process.env.JIRA_BASE_URL;
 const EMAIL = process.env.JIRA_EMAIL;
 const TOKEN = process.env.JIRA_API_TOKEN;
- 
+
 if (!BASE_URL || !EMAIL || !TOKEN) {
   console.error("Missing JIRA_BASE_URL, JIRA_EMAIL, or JIRA_API_TOKEN environment variables.");
   process.exit(1);
 }
- 
+
 const AUTH = "Basic " + Buffer.from(`${EMAIL}:${TOKEN}`).toString("base64");
- 
+
 // Standard Jira status category order: To Do -> In Progress -> Done
 const CATEGORY_ORDER = { 2: 0, 4: 1, 3: 2 }; // new=2, indeterminate=4, done=3
- 
+
 async function jiraFetch(path) {
   const res = await fetch(`${BASE_URL}${path}`, {
     headers: { Authorization: AUTH, Accept: "application/json" },
@@ -52,7 +51,7 @@ async function jiraFetch(path) {
   }
   return res.json();
 }
- 
+
 async function searchAll(jql, fields, expand, cap = 500) {
   const issues = [];
   let nextPageToken;
@@ -61,7 +60,7 @@ async function searchAll(jql, fields, expand, cap = 500) {
       jql,
       maxResults: 100,
       fields,
-      ...(expand ? { expand } : {}),
+      ...(expand ? { expand: Array.isArray(expand) ? expand.join(",") : expand } : {}),
       ...(nextPageToken ? { nextPageToken } : {}),
     };
     const res = await fetch(`${BASE_URL}/rest/api/3/search/jql`, {
@@ -79,27 +78,27 @@ async function searchAll(jql, fields, expand, cap = 500) {
   }
   return issues;
 }
- 
+
 function median(nums) {
   if (!nums.length) return null;
   const s = [...nums].sort((a, b) => a - b);
   const mid = Math.floor(s.length / 2);
   return s.length % 2 ? s[mid] : (s[mid - 1] + s[mid]) / 2;
 }
- 
+
 function isAiComponent(name) {
   return /claude|ai/i.test(name || "");
 }
- 
+
 function isBlockedComponent(name) {
   return /blocked/i.test(name || "");
 }
- 
+
 /** Analyze one issue's status changelog for cycle time + regressions. */
 function analyzeIssue(issue, statusCategoryByName) {
   const created = new Date(issue.fields.created).getTime();
   const resolved = issue.fields.resolutiondate ? new Date(issue.fields.resolutiondate).getTime() : null;
- 
+
   const histories = (issue.changelog?.histories || [])
     .flatMap((h) =>
       h.items
@@ -107,10 +106,10 @@ function analyzeIssue(issue, statusCategoryByName) {
         .map((i) => ({ ts: new Date(h.created).getTime(), from: i.fromString, to: i.toString }))
     )
     .sort((a, b) => a.ts - b.ts);
- 
+
   let startInProgress = null;
   let regressions = 0;
- 
+
   for (const t of histories) {
     const fromCat = statusCategoryByName[t.from];
     const toCat = statusCategoryByName[t.to];
@@ -119,31 +118,31 @@ function analyzeIssue(issue, statusCategoryByName) {
       regressions++;
     }
   }
- 
+
   // Edge case: issue created directly into an in-progress/done status with no changelog.
   if (startInProgress === null && histories.length === 0) {
     const curCat = statusCategoryByName[issue.fields.status.name];
     if (curCat === 4 || curCat === 3) startInProgress = created;
   }
- 
+
   let cycleTimeDays = null;
   if (resolved && startInProgress) {
     cycleTimeDays = (resolved - startInProgress) / 86400000;
   }
- 
+
   const hadTransition = histories.length > 0;
   const isAiTagged = (issue.fields.components || []).some((c) => isAiComponent(c.name));
- 
+
   return { cycleTimeDays, regressed: regressions > 0, hadTransition, isAiTagged, resolved };
 }
- 
+
 async function fetchStatusCategoryMap() {
   const statuses = await jiraFetch("/rest/api/3/status");
   const map = {};
   for (const s of statuses) map[s.name] = s.statusCategory.id;
   return map;
 }
- 
+
 async function analyzeProject(key, statusCategoryByName) {
   // WIP snapshot: all currently open issues, grouped by status.
   const wipIssues = await searchAll(`project = ${key} AND statusCategory != Done`, ["status"]);
@@ -152,14 +151,14 @@ async function analyzeProject(key, statusCategoryByName) {
     const name = issue.fields.status.name;
     wipByStatus[name] = (wipByStatus[name] || 0) + 1;
   }
- 
+
   // Recent activity window for cycle time / quality / AI-leverage / throughput.
   const recentIssues = await searchAll(
     `project = ${key} AND resolutiondate >= -30d`,
     ["created", "resolutiondate", "components", "status"],
     ["changelog"]
   );
- 
+
   const analyzed = recentIssues.map((i) => analyzeIssue(i, statusCategoryByName));
   const withCycleTime = analyzed.filter((a) => a.cycleTimeDays !== null).map((a) => a.cycleTimeDays);
   const withTransitions = analyzed.filter((a) => a.hadTransition);
@@ -167,11 +166,11 @@ async function analyzeProject(key, statusCategoryByName) {
   const resolved30d = analyzed.length;
   const resolved7d = analyzed.filter((a) => Date.now() - a.resolved <= 7 * 86400000).length;
   const aiTagged30d = analyzed.filter((a) => a.isAiTagged).length;
- 
+
   // Open blockers: WIP issues tagged with a "Blocked" component.
   const blockerIssues = await searchAll(`project = ${key} AND statusCategory != Done AND component is not EMPTY`, ["components"]);
   const openBlockers = blockerIssues.filter((i) => (i.fields.components || []).some((c) => isBlockedComponent(c.name))).length;
- 
+
   return {
     key,
     wipByStatus,
@@ -188,10 +187,10 @@ async function analyzeProject(key, statusCategoryByName) {
     openBlockers,
   };
 }
- 
+
 async function main() {
   const statusCategoryByName = await fetchStatusCategoryMap();
- 
+
   const projects = [];
   for (const key of PROJECTS) {
     console.log(`Analyzing ${key}...`);
@@ -202,7 +201,7 @@ async function main() {
       projects.push({ key, error: err.message });
     }
   }
- 
+
   const out = {
     generatedAt: new Date().toISOString(),
     groupingNote:
@@ -214,11 +213,11 @@ async function main() {
       note: "Focus Integrity and Team Pulse are not derivable from Jira data. Populate manually (e.g. from a survey tool) until a data source is identified.",
     },
   };
- 
+
   require("fs").writeFileSync("data.json", JSON.stringify(out, null, 2));
   console.log("Wrote data.json");
 }
- 
+
 main().catch((err) => {
   console.error(err);
   process.exit(1);
