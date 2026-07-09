@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-07-09T19:55:04.280Z",
+  "generatedAt": "2026-07-09T22:27:39.501Z",
   "groupingNote": "Metrics are grouped by real Jira project (no Pod/DM field exists yet). Update PROJECTS + grouping in fetch-jira-data.js once Pods/DMs are tracked in Jira.",
   "projects": [
     {
       "key": "INV",
       "wipByStatus": {
         "Backlog": 53,
-        "Ready for QA": 4,
+        "Ready for QA": 3,
         "Ready for Development": 6,
         "To Do": 26,
         "In QA": 3,
         "Ready for Code Review": 1,
+        "Ready for Acceptance": 2,
         "In Development": 1,
-        "In Progress": 14,
-        "Ready for Acceptance": 1
+        "In Progress": 14
       },
       "wipTotal": 109,
       "cycleTimeDays": {
@@ -30,28 +30,27 @@
     {
       "key": "APCOM",
       "wipByStatus": {
+        "Estimate": 2,
         "Ready for Development": 19,
+        "Ready for Code Review": 2,
         "Backlog": 23,
         "In Development": 2,
         "To Do": 7,
-        "Ready for QA": 7,
-        "Code Review": 1,
+        "Ready for QA": 6,
         "In Progress": 18,
-        "Estimate": 1,
-        "Acceptance": 1,
-        "Ready for Acceptance": 2,
-        "In QA": 2
+        "Ready for Acceptance": 3,
+        "In QA": 1
       },
       "wipTotal": 83,
       "cycleTimeDays": {
-        "avg": 13.2,
-        "median": 9.8,
-        "sampleSize": 55
+        "avg": 13.7,
+        "median": 10.1,
+        "sampleSize": 56
       },
-      "throughput7d": 5,
-      "throughput30d": 57,
-      "qualityLoopbackRatePct": 26.3,
-      "aiLeverageRatePct": 1.8,
+      "throughput7d": 6,
+      "throughput30d": 58,
+      "qualityLoopbackRatePct": 27.6,
+      "aiLeverageRatePct": 1.7,
       "openBlockers": 0
     },
     {
@@ -60,9 +59,9 @@
         "Backlog": 14,
         "Ready for Acceptance": 1,
         "Estimate": 3,
-        "In Development": 2,
+        "Ready for Code Review": 1,
         "To Do": 2,
-        "Ready for QA": 1,
+        "Ready for QA": 2,
         "In Progress": 7
       },
       "wipTotal": 30,
@@ -80,26 +79,26 @@
     {
       "key": "CORE",
       "wipByStatus": {
-        "Ready for Code Review": 3,
         "Backlog": 114,
         "In Development": 5,
-        "Ready for QA": 24,
+        "Ready for QA": 25,
         "To Do": 26,
         "Ready for Development": 34,
         "Ready for Acceptance": 8,
         "In QA": 3,
         "Estimate": 3,
+        "Code Review": 1,
         "In Progress": 1
       },
-      "wipTotal": 221,
+      "wipTotal": 220,
       "cycleTimeDays": {
-        "avg": 14.8,
-        "median": 6,
-        "sampleSize": 46
+        "avg": 14.5,
+        "median": 5.9,
+        "sampleSize": 47
       },
       "throughput7d": 1,
-      "throughput30d": 78,
-      "qualityLoopbackRatePct": 19.2,
+      "throughput30d": 79,
+      "qualityLoopbackRatePct": 19,
       "aiLeverageRatePct": 0,
       "openBlockers": 0
     },
@@ -111,10 +110,10 @@
         "Backlog": 6,
         "To Do": 20,
         "In Development": 1,
-        "Ready for Development": 7,
+        "Ready for Development": 8,
         "Ready for Code Review": 7,
         "Code Review": 3,
-        "In QA": 2,
+        "In QA": 1,
         "Ready for Acceptance": 1,
         "In Progress": 11
       },
@@ -135,13 +134,13 @@
       "wipByStatus": {
         "In Progress": 11,
         "Estimate": 1,
-        "Ready for QA": 11,
-        "Ready for Acceptance": 5,
+        "Ready for QA": 9,
+        "Ready for Acceptance": 7,
         "Backlog": 107,
         "Ready for Development": 27,
         "To Do": 11,
-        "In QA": 2,
-        "In Development": 1
+        "In Development": 2,
+        "In QA": 1
       },
       "wipTotal": 176,
       "cycleTimeDays": {
@@ -167,19 +166,18 @@
         "Ready for Code Review": 4,
         "In Progress": 7,
         "In QA": 2,
-        "Acceptance": 1,
         "Design Review": 1
       },
-      "wipTotal": 72,
+      "wipTotal": 71,
       "cycleTimeDays": {
-        "avg": 13.8,
-        "median": 12.8,
-        "sampleSize": 29
+        "avg": 14.1,
+        "median": 13.2,
+        "sampleSize": 30
       },
       "throughput7d": 11,
-      "throughput30d": 30,
-      "qualityLoopbackRatePct": 53.3,
-      "aiLeverageRatePct": 3.3,
+      "throughput30d": 31,
+      "qualityLoopbackRatePct": 54.8,
+      "aiLeverageRatePct": 3.2,
       "openBlockers": 0
     },
     {
