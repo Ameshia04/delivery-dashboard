@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-09T22:27:39.501Z",
+  "generatedAt": "2026-07-10T03:53:09.532Z",
   "groupingNote": "Metrics are grouped by real Jira project (no Pod/DM field exists yet). Update PROJECTS + grouping in fetch-jira-data.js once Pods/DMs are tracked in Jira.",
   "projects": [
     {
@@ -31,10 +31,10 @@
       "key": "APCOM",
       "wipByStatus": {
         "Estimate": 2,
-        "Ready for Development": 19,
-        "Ready for Code Review": 2,
-        "Backlog": 23,
         "In Development": 2,
+        "Ready for Code Review": 3,
+        "Backlog": 23,
+        "Ready for Development": 18,
         "To Do": 7,
         "Ready for QA": 6,
         "In Progress": 18,
@@ -184,13 +184,12 @@
       "key": "HR",
       "wipByStatus": {
         "Ready for Design": 1,
-        "In Development": 1,
+        "In Development": 2,
         "Ready for Development": 2,
         "Backlog": 19,
         "Ready for QA": 7,
         "To Do": 18,
         "In Progress": 8,
-        "Code Review": 1,
         "In QA": 1
       },
       "wipTotal": 58,
