@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-10T17:01:48.837Z",
+  "generatedAt": "2026-07-10T19:41:09.444Z",
   "groupingNote": "Metrics are grouped by real Jira project (no Pod/DM field exists yet). Update PROJECTS + grouping in fetch-jira-data.js once Pods/DMs are tracked in Jira.",
   "projects": [
     {
@@ -10,18 +10,18 @@
         "Ready for QA": 3,
         "Ready for Development": 6,
         "To Do": 26,
-        "In QA": 3,
+        "In QA": 2,
         "Ready for Code Review": 1,
         "In Development": 1,
         "In Progress": 14
       },
-      "wipTotal": 109,
+      "wipTotal": 108,
       "cycleTimeDays": {
-        "avg": 45.5,
+        "avg": 45.3,
         "median": 22.8,
         "sampleSize": 40
       },
-      "throughput7d": 9,
+      "throughput7d": 10,
       "throughput30d": 45,
       "qualityLoopbackRatePct": 42.2,
       "aiLeverageRatePct": 0,
@@ -30,10 +30,11 @@
     {
       "key": "APCOM",
       "wipByStatus": {
-        "Ready for Development": 20,
         "Ready for Code Review": 1,
         "Ready for QA": 9,
+        "In QA": 1,
         "Backlog": 23,
+        "Ready for Development": 19,
         "In Development": 1,
         "To Do": 7,
         "In Progress": 18,
@@ -79,10 +80,10 @@
       "wipByStatus": {
         "In Development": 6,
         "Backlog": 114,
-        "Ready for QA": 26,
+        "Ready for QA": 24,
         "To Do": 26,
-        "Ready for Development": 34,
-        "Ready for Acceptance": 8,
+        "Ready for Development": 35,
+        "Ready for Acceptance": 9,
         "In QA": 3,
         "Estimate": 3,
         "In Progress": 1
@@ -110,16 +111,15 @@
         "Ready for Development": 8,
         "Ready for Code Review": 7,
         "Code Review": 3,
-        "Ready for Acceptance": 2,
         "In Progress": 11
       },
-      "wipTotal": 82,
+      "wipTotal": 80,
       "cycleTimeDays": {
-        "avg": 23.2,
+        "avg": 23.1,
         "median": 6.6,
         "sampleSize": 36
       },
-      "throughput7d": 5,
+      "throughput7d": 7,
       "throughput30d": 39,
       "qualityLoopbackRatePct": 25.6,
       "aiLeverageRatePct": 0,
@@ -158,10 +158,10 @@
         "Ready for Development": 2,
         "In Development": 3,
         "Backlog": 20,
-        "Ready for QA": 1,
+        "In QA": 3,
         "To Do": 24,
         "Ready for Code Review": 4,
-        "In QA": 3,
+        "Ready for Acceptance": 1,
         "In Progress": 7,
         "Design Review": 1
       },
@@ -184,10 +184,9 @@
         "In Development": 1,
         "Ready for Development": 2,
         "Backlog": 19,
-        "Ready for QA": 7,
+        "Ready for QA": 8,
         "To Do": 18,
         "In Progress": 8,
-        "Code Review": 1,
         "In QA": 1
       },
       "wipTotal": 58,
