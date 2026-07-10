@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-10T09:46:28.321Z",
+  "generatedAt": "2026-07-10T14:41:15.113Z",
   "groupingNote": "Metrics are grouped by real Jira project (no Pod/DM field exists yet). Update PROJECTS + grouping in fetch-jira-data.js once Pods/DMs are tracked in Jira.",
   "projects": [
     {
@@ -11,68 +11,70 @@
         "To Do": 26,
         "In QA": 3,
         "Ready for Code Review": 1,
-        "Ready for Acceptance": 2,
         "In Development": 1,
-        "In Progress": 14
+        "In Progress": 14,
+        "Acceptance": 1
       },
-      "wipTotal": 109,
+      "wipTotal": 108,
       "cycleTimeDays": {
-        "avg": 45.6,
-        "median": 22.8,
-        "sampleSize": 38
+        "avg": 45,
+        "median": 22.6,
+        "sampleSize": 39
       },
-      "throughput7d": 7,
-      "throughput30d": 43,
-      "qualityLoopbackRatePct": 41.9,
+      "throughput7d": 8,
+      "throughput30d": 44,
+      "qualityLoopbackRatePct": 40.9,
       "aiLeverageRatePct": 0,
       "openBlockers": 2
     },
     {
       "key": "APCOM",
       "wipByStatus": {
-        "Estimate": 2,
+        "Ready for Development": 19,
         "In Development": 2,
-        "Ready for Code Review": 3,
+        "Code Review": 1,
         "Backlog": 23,
-        "Ready for Development": 18,
+        "Ready for QA": 7,
         "To Do": 7,
-        "Ready for QA": 6,
+        "Ready for Code Review": 1,
         "In Progress": 18,
+        "Estimate": 1,
         "Ready for Acceptance": 3,
         "In QA": 1
       },
       "wipTotal": 83,
       "cycleTimeDays": {
-        "avg": 13.7,
-        "median": 10.1,
-        "sampleSize": 56
+        "avg": 12.8,
+        "median": 9.8,
+        "sampleSize": 55
       },
       "throughput7d": 6,
-      "throughput30d": 58,
-      "qualityLoopbackRatePct": 27.6,
-      "aiLeverageRatePct": 1.7,
+      "throughput30d": 57,
+      "qualityLoopbackRatePct": 26.3,
+      "aiLeverageRatePct": 1.8,
       "openBlockers": 0
     },
     {
       "key": "EMP",
       "wipByStatus": {
         "Backlog": 14,
-        "Ready for Acceptance": 1,
+        "Acceptance": 1,
         "Estimate": 3,
         "Ready for Code Review": 1,
         "To Do": 2,
-        "Ready for QA": 2,
+        "In QA": 1,
+        "Ready for QA": 1,
         "In Progress": 7
       },
       "wipTotal": 30,
       "cycleTimeDays": {
-        "avg": 10.4,
+        "avg": 10.6,
         "median": 6.2,
-        "sampleSize": 24
+        "sampleSize": 23
       },
       "throughput7d": 2,
-      "throughput30d": 40,
-      "qualityLoopbackRatePct": 32.5,
+      "throughput30d": 39,
+      "qualityLoopbackRatePct": 33.3,
       "aiLeverageRatePct": 0,
       "openBlockers": 0
     },
@@ -105,19 +107,18 @@
     {
       "key": "MOBILE",
       "wipByStatus": {
+        "Backlog": 10,
         "Ready for Design": 1,
         "Design Review": 1,
-        "Backlog": 6,
         "To Do": 20,
         "In Development": 1,
         "Ready for Development": 8,
         "Ready for Code Review": 7,
         "Code Review": 3,
-        "In QA": 1,
-        "Ready for Acceptance": 1,
+        "Ready for Acceptance": 2,
         "In Progress": 11
       },
-      "wipTotal": 60,
+      "wipTotal": 64,
       "cycleTimeDays": {
         "avg": 23.2,
         "median": 6.6,
@@ -133,24 +134,24 @@
       "key": "BOA",
       "wipByStatus": {
         "In Progress": 11,
-        "Estimate": 1,
+        "Ready for Code Review": 1,
         "Ready for QA": 9,
         "Ready for Acceptance": 7,
         "Backlog": 107,
-        "Ready for Development": 27,
+        "Ready for Development": 26,
         "To Do": 11,
         "In Development": 2,
         "In QA": 1
       },
-      "wipTotal": 176,
+      "wipTotal": 175,
       "cycleTimeDays": {
-        "avg": 39.7,
-        "median": 7.4,
-        "sampleSize": 40
+        "avg": 39.3,
+        "median": 6.8,
+        "sampleSize": 39
       },
-      "throughput7d": 5,
-      "throughput30d": 43,
-      "qualityLoopbackRatePct": 18.6,
+      "throughput7d": 6,
+      "throughput30d": 41,
+      "qualityLoopbackRatePct": 22,
       "aiLeverageRatePct": 0,
       "openBlockers": 0
     },
@@ -158,26 +159,26 @@
       "key": "EXP",
       "wipByStatus": {
         "Estimate": 6,
-        "Ready for Development": 3,
-        "In Development": 2,
+        "Ready for Development": 2,
+        "In Development": 3,
         "Backlog": 20,
-        "Ready for QA": 2,
+        "Ready for QA": 1,
         "To Do": 24,
         "Ready for Code Review": 4,
+        "In QA": 3,
         "In Progress": 7,
-        "In QA": 2,
         "Design Review": 1
       },
       "wipTotal": 71,
       "cycleTimeDays": {
-        "avg": 14.1,
-        "median": 13.2,
-        "sampleSize": 30
+        "avg": 13.6,
+        "median": 12.8,
+        "sampleSize": 29
       },
       "throughput7d": 11,
-      "throughput30d": 31,
-      "qualityLoopbackRatePct": 54.8,
-      "aiLeverageRatePct": 3.2,
+      "throughput30d": 30,
+      "qualityLoopbackRatePct": 56.7,
+      "aiLeverageRatePct": 3.3,
       "openBlockers": 0
     },
     {
@@ -194,12 +195,12 @@
       },
       "wipTotal": 58,
       "cycleTimeDays": {
-        "avg": 17.5,
-        "median": 15.2,
-        "sampleSize": 19
+        "avg": 18.7,
+        "median": 20.2,
+        "sampleSize": 17
       },
       "throughput7d": 4,
-      "throughput30d": 22,
+      "throughput30d": 20,
       "qualityLoopbackRatePct": 50,
       "aiLeverageRatePct": 0,
       "openBlockers": 0
