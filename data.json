@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-11T19:12:35.622Z",
+  "generatedAt": "2026-07-11T21:56:21.639Z",
   "groupingNote": "Metrics are grouped by real Jira project (no Pod/DM field exists yet). Update PROJECTS + grouping in fetch-jira-data.js once Pods/DMs are tracked in Jira.",
   "projects": [
     {
@@ -92,13 +92,13 @@
       },
       "wipTotal": 221,
       "cycleTimeDays": {
-        "avg": 13.5,
-        "median": 5.3,
-        "sampleSize": 46
+        "avg": 13.4,
+        "median": 4.2,
+        "sampleSize": 43
       },
       "throughput7d": 1,
-      "throughput30d": 78,
-      "qualityLoopbackRatePct": 17.9,
+      "throughput30d": 73,
+      "qualityLoopbackRatePct": 19.2,
       "aiLeverageRatePct": 0,
       "openBlockers": 0
     },
@@ -117,13 +117,13 @@
       },
       "wipTotal": 80,
       "cycleTimeDays": {
-        "avg": 23.4,
+        "avg": 23.9,
         "median": 5.9,
-        "sampleSize": 33
+        "sampleSize": 32
       },
       "throughput7d": 8,
-      "throughput30d": 37,
-      "qualityLoopbackRatePct": 21.6,
+      "throughput30d": 36,
+      "qualityLoopbackRatePct": 22.2,
       "aiLeverageRatePct": 0,
       "openBlockers": 0
     },
@@ -143,13 +143,13 @@
       },
       "wipTotal": 176,
       "cycleTimeDays": {
-        "avg": 39.3,
-        "median": 6.8,
-        "sampleSize": 39
+        "avg": 40.3,
+        "median": 6.9,
+        "sampleSize": 38
       },
       "throughput7d": 6,
-      "throughput30d": 40,
-      "qualityLoopbackRatePct": 22.5,
+      "throughput30d": 39,
+      "qualityLoopbackRatePct": 23.1,
       "aiLeverageRatePct": 0,
       "openBlockers": 0
     },
@@ -170,14 +170,14 @@
       },
       "wipTotal": 71,
       "cycleTimeDays": {
-        "avg": 13.6,
+        "avg": 13.9,
         "median": 12.8,
-        "sampleSize": 29
+        "sampleSize": 27
       },
       "throughput7d": 11,
-      "throughput30d": 30,
-      "qualityLoopbackRatePct": 56.7,
-      "aiLeverageRatePct": 3.3,
+      "throughput30d": 28,
+      "qualityLoopbackRatePct": 57.1,
+      "aiLeverageRatePct": 3.6,
       "openBlockers": 0
     },
     {
