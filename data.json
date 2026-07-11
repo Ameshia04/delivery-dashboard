@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-11T16:00:17.685Z",
+  "generatedAt": "2026-07-11T19:12:35.622Z",
   "groupingNote": "Metrics are grouped by real Jira project (no Pod/DM field exists yet). Update PROJECTS + grouping in fetch-jira-data.js once Pods/DMs are tracked in Jira.",
   "projects": [
     {
@@ -17,13 +17,13 @@
       },
       "wipTotal": 108,
       "cycleTimeDays": {
-        "avg": 45.9,
-        "median": 22.6,
-        "sampleSize": 39
+        "avg": 46.1,
+        "median": 22.3,
+        "sampleSize": 38
       },
       "throughput7d": 10,
-      "throughput30d": 44,
-      "qualityLoopbackRatePct": 40.9,
+      "throughput30d": 43,
+      "qualityLoopbackRatePct": 39.5,
       "aiLeverageRatePct": 0,
       "openBlockers": 2
     },
@@ -66,13 +66,13 @@
       },
       "wipTotal": 30,
       "cycleTimeDays": {
-        "avg": 7.8,
-        "median": 6.1,
-        "sampleSize": 21
+        "avg": 7,
+        "median": 5.9,
+        "sampleSize": 20
       },
       "throughput7d": 3,
-      "throughput30d": 37,
-      "qualityLoopbackRatePct": 29.7,
+      "throughput30d": 36,
+      "qualityLoopbackRatePct": 27.8,
       "aiLeverageRatePct": 0,
       "openBlockers": 0
     },
@@ -118,12 +118,12 @@
       "wipTotal": 80,
       "cycleTimeDays": {
         "avg": 23.4,
-        "median": 6,
-        "sampleSize": 34
+        "median": 5.9,
+        "sampleSize": 33
       },
       "throughput7d": 8,
-      "throughput30d": 38,
-      "qualityLoopbackRatePct": 21.1,
+      "throughput30d": 37,
+      "qualityLoopbackRatePct": 21.6,
       "aiLeverageRatePct": 0,
       "openBlockers": 0
     },
