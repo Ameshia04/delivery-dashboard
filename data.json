@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-10T22:11:06.754Z",
+  "generatedAt": "2026-07-11T03:19:17.387Z",
   "groupingNote": "Metrics are grouped by real Jira project (no Pod/DM field exists yet). Update PROJECTS + grouping in fetch-jira-data.js once Pods/DMs are tracked in Jira.",
   "projects": [
     {
@@ -62,7 +62,7 @@
         "To Do": 2,
         "In QA": 1,
         "In Progress": 7,
-        "In Development": 1
+        "Code Review": 1
       },
       "wipTotal": 30,
       "cycleTimeDays": {
@@ -79,8 +79,9 @@
     {
       "key": "CORE",
       "wipByStatus": {
-        "In Development": 6,
+        "Ready for Code Review": 1,
         "Backlog": 114,
+        "In Development": 5,
         "Ready for QA": 22,
         "To Do": 26,
         "Ready for Development": 35,
@@ -157,7 +158,8 @@
       "wipByStatus": {
         "Estimate": 6,
         "Ready for Development": 2,
-        "In Development": 4,
+        "In Development": 2,
+        "Ready for QA": 2,
         "Backlog": 20,
         "To Do": 24,
         "Ready for Code Review": 4,
