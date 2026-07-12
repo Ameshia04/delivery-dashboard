@@ -1,29 +1,29 @@
 {
-  "generatedAt": "2026-07-12T13:40:21.769Z",
+  "generatedAt": "2026-07-12T16:03:29.225Z",
   "groupingNote": "Metrics are grouped by real Jira project (no Pod/DM field exists yet). Update PROJECTS + grouping in fetch-jira-data.js once Pods/DMs are tracked in Jira.",
   "projects": [
     {
       "key": "INV",
       "wipByStatus": {
-        "In Design": 2,
+        "In Design": 1,
+        "In Development": 2,
         "Backlog": 53,
         "Ready for QA": 3,
         "Ready for Development": 6,
         "To Do": 26,
         "In QA": 2,
         "Ready for Code Review": 1,
-        "In Development": 1,
         "In Progress": 14
       },
       "wipTotal": 108,
       "cycleTimeDays": {
-        "avg": 46.1,
-        "median": 22.3,
-        "sampleSize": 38
+        "avg": 46.7,
+        "median": 22,
+        "sampleSize": 37
       },
       "throughput7d": 10,
-      "throughput30d": 43,
-      "qualityLoopbackRatePct": 39.5,
+      "throughput30d": 42,
+      "qualityLoopbackRatePct": 40.5,
       "aiLeverageRatePct": 0,
       "openBlockers": 2
     },
@@ -67,12 +67,12 @@
       "wipTotal": 30,
       "cycleTimeDays": {
         "avg": 7,
-        "median": 5.9,
-        "sampleSize": 20
+        "median": 5.8,
+        "sampleSize": 19
       },
       "throughput7d": 3,
-      "throughput30d": 36,
-      "qualityLoopbackRatePct": 27.8,
+      "throughput30d": 35,
+      "qualityLoopbackRatePct": 25.7,
       "aiLeverageRatePct": 0,
       "openBlockers": 0
     },
