@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-12T21:57:18.951Z",
+  "generatedAt": "2026-07-13T03:33:40.282Z",
   "groupingNote": "Metrics are grouped by real Jira project (no Pod/DM field exists yet). Update PROJECTS + grouping in fetch-jira-data.js once Pods/DMs are tracked in Jira.",
   "projects": [
     {
@@ -42,14 +42,14 @@
       },
       "wipTotal": 83,
       "cycleTimeDays": {
-        "avg": 13.1,
+        "avg": 13.3,
         "median": 10.4,
-        "sampleSize": 53
+        "sampleSize": 52
       },
       "throughput7d": 6,
-      "throughput30d": 55,
-      "qualityLoopbackRatePct": 27.3,
-      "aiLeverageRatePct": 1.8,
+      "throughput30d": 54,
+      "qualityLoopbackRatePct": 25.9,
+      "aiLeverageRatePct": 1.9,
       "openBlockers": 0
     },
     {
