@@ -1,28 +1,29 @@
 {
-  "generatedAt": "2026-07-13T17:18:32.251Z",
+  "generatedAt": "2026-07-13T19:37:06.426Z",
   "groupingNote": "Metrics are grouped by real Jira project (no Pod/DM field exists yet). Update PROJECTS + grouping in fetch-jira-data.js once Pods/DMs are tracked in Jira.",
   "projects": [
     {
       "key": "INV",
       "wipByStatus": {
-        "Backlog": 51,
+        "Backlog": 52,
         "Ready for Development": 14,
-        "Ready for QA": 5,
+        "Acceptance": 1,
+        "Ready for QA": 4,
         "In QA": 2,
-        "Ready for Code Review": 2,
         "To Do": 25,
+        "Ready for Code Review": 1,
         "In Development": 3,
         "In Progress": 14
       },
       "wipTotal": 116,
       "cycleTimeDays": {
-        "avg": 46.7,
-        "median": 22,
-        "sampleSize": 37
+        "avg": 45.8,
+        "median": 21.7,
+        "sampleSize": 38
       },
-      "throughput7d": 10,
-      "throughput30d": 41,
-      "qualityLoopbackRatePct": 41.5,
+      "throughput7d": 8,
+      "throughput30d": 42,
+      "qualityLoopbackRatePct": 42.9,
       "aiLeverageRatePct": 0,
       "openBlockers": 2
     },
@@ -31,9 +32,9 @@
       "wipByStatus": {
         "Ready for Code Review": 2,
         "Ready for QA": 8,
-        "In QA": 2,
+        "In QA": 3,
         "Backlog": 23,
-        "In Development": 3,
+        "In Development": 2,
         "Ready for Development": 16,
         "To Do": 7,
         "In Progress": 18,
@@ -80,40 +81,41 @@
     {
       "key": "CORE",
       "wipByStatus": {
-        "In Development": 5,
-        "Ready for QA": 24,
-        "Backlog": 114,
-        "Ready for Code Review": 1,
+        "Backlog": 115,
+        "Ready for Code Review": 3,
+        "Ready for QA": 25,
+        "In Development": 3,
         "To Do": 26,
         "Ready for Development": 33,
         "Estimate": 3,
         "In QA": 2,
-        "Ready for Acceptance": 3,
-        "In Progress": 1,
-        "Code Review": 1
+        "Ready for Acceptance": 1,
+        "In Progress": 1
       },
-      "wipTotal": 213,
+      "wipTotal": 212,
       "cycleTimeDays": {
-        "avg": 13.7,
-        "median": 6.8,
-        "sampleSize": 52
+        "avg": 15,
+        "median": 7,
+        "sampleSize": 54
       },
-      "throughput7d": 10,
-      "throughput30d": 82,
-      "qualityLoopbackRatePct": 19.5,
+      "throughput7d": 12,
+      "throughput30d": 84,
+      "qualityLoopbackRatePct": 20.2,
       "aiLeverageRatePct": 0,
       "openBlockers": 0
     },
     {
       "key": "MOBILE",
       "wipByStatus": {
-        "Backlog": 30,
+        "Estimate": 2,
+        "Backlog": 29,
         "Design Review": 1,
-        "Estimate": 1,
         "To Do": 20,
         "Ready for Code Review": 11,
-        "Ready for Development": 5,
-        "Code Review": 3,
+        "Ready for Development": 4,
+        "Ready for QA": 1,
+        "In QA": 2,
+        "In Development": 1,
         "In Progress": 11
       },
       "wipTotal": 82,
@@ -134,8 +136,8 @@
         "Ready for Code Review": 1,
         "Ready for Acceptance": 9,
         "In Progress": 11,
-        "Ready for QA": 9,
         "In QA": 1,
+        "Ready for QA": 9,
         "Backlog": 107,
         "Ready for Development": 26,
         "To Do": 11,
@@ -159,13 +161,15 @@
         "Estimate": 6,
         "Ready for Development": 2,
         "In Development": 3,
-        "In QA": 3,
         "Backlog": 20,
+        "Ready for Acceptance": 1,
         "To Do": 24,
         "Ready for Code Review": 4,
         "Acceptance": 1,
         "In Progress": 7,
-        "Design Review": 1
+        "In QA": 1,
+        "Design Review": 1,
+        "Ready for QA": 1
       },
       "wipTotal": 71,
       "cycleTimeDays": {
