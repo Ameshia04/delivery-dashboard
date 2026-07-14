@@ -1,10 +1,9 @@
-
 /**
- * fetch-jira-data.js
+ * fetch-jira-data.js  (v2)
  * Place this file at: scripts/fetch-jira-data.js in the GitHub repo.
  *
  * Pulls live delivery metrics from Jira and writes data.json for the
- * POD Delivery Dashboard (index.html) to read.
+ * Delivery Dashboard (index.html) to read.
  *
  * Run by .github/workflows/update-dashboard-data.yml on a schedule.
  *
@@ -13,21 +12,38 @@
  *   JIRA_EMAIL      the Jira account email tied to the API token
  *   JIRA_API_TOKEN  Jira Cloud API token (id.atlassian.com/manage-profile/security/api-tokens)
  *
+ * WHAT'S NEW IN V2:
+ *   - Rolling 8-week (56-day) window, always relative to "today" (the
+ *     day the script runs), instead of a fixed 30-day window.
+ *   - Lead Time (created -> resolved) alongside Cycle Time
+ *     (first "In Progress" transition -> resolved).
+ *   - A `weekly` array per project: 8 buckets (oldest -> newest) with
+ *     throughput, cycle time, lead time, quality, and AI-leverage for
+ *     that specific week, so the dashboard can show week-over-week
+ *     trend lines per project.
+ *   - `blockedIssues` per project: real Jira "Blocks" issue-link
+ *     dependencies (falls back to a "Blocked" component tag if no
+ *     formal link exists).
+ *   - Quality loop-back rate now reports the exact count (regressed /
+ *     sample size) alongside the percentage, both overall and per week.
+ *
  * IMPORTANT / CURRENT STATE (July 2026):
  * There is no "Pod" or "Delivery Manager" field in Jira today, so this
  * script reports metrics per real Jira PROJECT (INV, APCOM, EMP, CORE,
- * MOBILE, BOA, EXP, HR). When Pods/DMs are introduced in Jira (e.g. as a
- * label or component convention), update PROJECTS below and the grouping
- * logic in main() -- the JQL, cycle time, quality, and AI-leverage math
- * all stay the same.
+ * MOBILE, BOA, EXP, HR). When Pods/DMs are introduced in Jira, update
+ * PROJECTS below and the grouping logic in main() -- the JQL and math
+ * stay the same.
  *
- * NOTE: Uses Jira Cloud's newer POST /rest/api/3/search/jql endpoint
- * (the old GET /rest/api/3/search endpoint was retired by Atlassian --
- * see https://developer.atlassian.com/changelog/#CHANGE-2046). This new
- * endpoint paginates with nextPageToken instead of startAt.
+ * NOTE: Uses Jira Cloud's POST /rest/api/3/search/jql endpoint (the old
+ * GET /rest/api/3/search endpoint was retired by Atlassian -- see
+ * https://developer.atlassian.com/changelog/#CHANGE-2046). `expand` must
+ * be sent as a comma-separated string, not an array, or Jira returns a
+ * 400 "Invalid request payload".
  */
 
 const PROJECTS = ["INV", "APCOM", "EMP", "CORE", "MOBILE", "BOA", "EXP", "HR"];
+const WINDOW_DAYS = 56; // rolling 8 weeks
+const WEEK_MS = 7 * 86400000;
 
 const BASE_URL = process.env.JIRA_BASE_URL;
 const EMAIL = process.env.JIRA_EMAIL;
@@ -53,7 +69,7 @@ async function jiraFetch(path) {
   return res.json();
 }
 
-async function searchAll(jql, fields, expand, cap = 500) {
+async function searchAll(jql, fields, expand, cap = 1000) {
   const issues = [];
   let nextPageToken;
   while (issues.length < cap) {
@@ -80,11 +96,19 @@ async function searchAll(jql, fields, expand, cap = 500) {
   return issues;
 }
 
+function avg(nums) {
+  return nums.length ? nums.reduce((a, b) => a + b, 0) / nums.length : null;
+}
+
 function median(nums) {
   if (!nums.length) return null;
   const s = [...nums].sort((a, b) => a - b);
   const mid = Math.floor(s.length / 2);
   return s.length % 2 ? s[mid] : (s[mid - 1] + s[mid]) / 2;
+}
+
+function round1(n) {
+  return n === null || n === undefined ? null : Number(n.toFixed(1));
 }
 
 function isAiComponent(name) {
@@ -95,7 +119,7 @@ function isBlockedComponent(name) {
   return /blocked/i.test(name || "");
 }
 
-/** Analyze one issue's status changelog for cycle time + regressions. */
+/** Analyze one issue's status changelog for cycle time, lead time, and regressions. */
 function analyzeIssue(issue, statusCategoryByName) {
   const created = new Date(issue.fields.created).getTime();
   const resolved = issue.fields.resolutiondate ? new Date(issue.fields.resolutiondate).getTime() : null;
@@ -127,14 +151,15 @@ function analyzeIssue(issue, statusCategoryByName) {
   }
 
   let cycleTimeDays = null;
-  if (resolved && startInProgress) {
-    cycleTimeDays = (resolved - startInProgress) / 86400000;
-  }
+  if (resolved && startInProgress) cycleTimeDays = (resolved - startInProgress) / 86400000;
+
+  let leadTimeDays = null;
+  if (resolved) leadTimeDays = (resolved - created) / 86400000;
 
   const hadTransition = histories.length > 0;
   const isAiTagged = (issue.fields.components || []).some((c) => isAiComponent(c.name));
 
-  return { cycleTimeDays, regressed: regressions > 0, hadTransition, isAiTagged, resolved };
+  return { cycleTimeDays, leadTimeDays, regressed: regressions > 0, hadTransition, isAiTagged, resolved };
 }
 
 async function fetchStatusCategoryMap() {
@@ -144,48 +169,142 @@ async function fetchStatusCategoryMap() {
   return map;
 }
 
+function summarize(analyzed) {
+  const withCycleTime = analyzed.filter((a) => a.cycleTimeDays !== null).map((a) => a.cycleTimeDays);
+  const withLeadTime = analyzed.filter((a) => a.leadTimeDays !== null).map((a) => a.leadTimeDays);
+  const withTransitions = analyzed.filter((a) => a.hadTransition);
+  const regressed = withTransitions.filter((a) => a.regressed);
+  const aiTagged = analyzed.filter((a) => a.isAiTagged);
+
+  return {
+    throughput: analyzed.length,
+    cycleTimeAvg: round1(avg(withCycleTime)),
+    cycleTimeMedian: round1(median(withCycleTime)),
+    cycleTimeSampleSize: withCycleTime.length,
+    leadTimeAvg: round1(avg(withLeadTime)),
+    leadTimeMedian: round1(median(withLeadTime)),
+    leadTimeSampleSize: withLeadTime.length,
+    qualityLoopbackRatePct: withTransitions.length ? round1((regressed.length / withTransitions.length) * 100) : null,
+    qualityLoopbackCount: regressed.length,
+    qualityLoopbackSampleSize: withTransitions.length,
+    aiLeverageRatePct: analyzed.length ? round1((aiTagged.length / analyzed.length) * 100) : null,
+  };
+}
+
+function weekLabel(startMs, endMs) {
+  const fmt = (ms) => new Date(ms).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  return `${fmt(startMs)}–${fmt(endMs)}`;
+}
+
 async function analyzeProject(key, statusCategoryByName) {
-  // WIP snapshot: all currently open issues, grouped by status.
-  const wipIssues = await searchAll(`project = ${key} AND statusCategory != Done`, ["status"]);
+  // WIP snapshot: all currently open issues, grouped by status (not time-windowed).
+  // Also pull issuelinks so we can surface real "blocked by" dependencies, not just a
+  // "Blocked" component guess. Jira embeds a minimal fields object (key, summary, status)
+  // on each linked issue automatically, so no extra API calls are needed.
+  const wipIssues = await searchAll(`project = ${key} AND statusCategory != Done`, ["status", "summary", "issuelinks", "components"]);
   const wipByStatus = {};
   for (const issue of wipIssues) {
     const name = issue.fields.status.name;
     wipByStatus[name] = (wipByStatus[name] || 0) + 1;
   }
 
-  // Recent activity window for cycle time / quality / AI-leverage / throughput.
-  const recentIssues = await searchAll(
-    `project = ${key} AND resolutiondate >= -30d`,
+  // Dependencies: for each open issue, find "Blocks" links where THIS issue is the
+  // one being blocked (an inwardIssue under a "Blocks" type link), and keep only
+  // blockers that are themselves still open (not Done).
+  const blockedIssues = [];
+  for (const issue of wipIssues) {
+    const links = issue.fields.issuelinks || [];
+    const blockers = links
+      .filter((l) => l.type && l.type.name === "Blocks" && l.inwardIssue)
+      .map((l) => {
+        const bFields = l.inwardIssue.fields || {};
+        const bCat = bFields.status && bFields.status.statusCategory ? bFields.status.statusCategory.key : null;
+        return {
+          key: l.inwardIssue.key,
+          summary: bFields.summary || null,
+          status: bFields.status ? bFields.status.name : null,
+          isOpen: bCat ? bCat !== "done" : true,
+        };
+      })
+      .filter((b) => b.isOpen);
+    if (blockers.length) {
+      blockedIssues.push({
+        key: issue.key,
+        summary: issue.fields.summary,
+        status: issue.fields.status.name,
+        blockedBy: blockers.map((b) => ({ key: b.key, summary: b.summary, status: b.status })),
+      });
+    }
+  }
+  // Fall back to the "Blocked" component tag for issues that are flagged that way
+  // but don't (yet) have a formal Jira issue link recorded.
+  const linkedKeys = new Set(blockedIssues.map((b) => b.key));
+  for (const issue of wipIssues) {
+    if (linkedKeys.has(issue.key)) continue;
+    if ((issue.fields.components || []).some((c) => isBlockedComponent(c.name))) {
+      blockedIssues.push({ key: issue.key, summary: issue.fields.summary, status: issue.fields.status.name, blockedBy: [] });
+    }
+  }
+  const openBlockers = blockedIssues.length;
+
+  // Rolling 8-week window, relative to right now.
+  const now = Date.now();
+  const windowIssues = await searchAll(
+    `project = ${key} AND resolutiondate >= -${WINDOW_DAYS}d`,
     ["created", "resolutiondate", "components", "status"],
-    ["changelog"]
+    "changelog"
   );
+  const analyzed = windowIssues.map((i) => analyzeIssue(i, statusCategoryByName));
 
-  const analyzed = recentIssues.map((i) => analyzeIssue(i, statusCategoryByName));
-  const withCycleTime = analyzed.filter((a) => a.cycleTimeDays !== null).map((a) => a.cycleTimeDays);
-  const withTransitions = analyzed.filter((a) => a.hadTransition);
-  const regressed = withTransitions.filter((a) => a.regressed);
-  const resolved30d = analyzed.length;
-  const resolved7d = analyzed.filter((a) => Date.now() - a.resolved <= 7 * 86400000).length;
-  const aiTagged30d = analyzed.filter((a) => a.isAiTagged).length;
+  // Weekly buckets: index 0 = oldest week (49-56 days ago), index 7 = this week (0-7 days ago).
+  const buckets = Array.from({ length: 8 }, () => []);
+  for (const a of analyzed) {
+    if (!a.resolved) continue;
+    const daysAgo = (now - a.resolved) / 86400000;
+    const weekFromToday = Math.min(7, Math.floor(daysAgo / 7)); // 0 = this week ... 7 = oldest week
+    const bucketIndex = 7 - weekFromToday; // flip so array is oldest -> newest
+    buckets[bucketIndex].push(a);
+  }
 
-  // Open blockers: WIP issues tagged with a "Blocked" component.
-  const blockerIssues = await searchAll(`project = ${key} AND statusCategory != Done AND component is not EMPTY`, ["components"]);
-  const openBlockers = blockerIssues.filter((i) => (i.fields.components || []).some((c) => isBlockedComponent(c.name))).length;
+  const weekly = buckets.map((bucketIssues, i) => {
+    const weeksAgo = 7 - i; // 7 = oldest, 0 = current week
+    const endMs = now - weeksAgo * WEEK_MS;
+    const startMs = endMs - WEEK_MS;
+    const s = summarize(bucketIssues);
+    return {
+      label: weekLabel(startMs, endMs),
+      weekStart: new Date(startMs).toISOString(),
+      weekEnd: new Date(endMs).toISOString(),
+      throughput: s.throughput,
+      cycleTimeAvg: s.cycleTimeAvg,
+      leadTimeAvg: s.leadTimeAvg,
+      qualityLoopbackRatePct: s.qualityLoopbackRatePct,
+      qualityLoopbackCount: s.qualityLoopbackCount,
+      qualityLoopbackSampleSize: s.qualityLoopbackSampleSize,
+      aiLeverageRatePct: s.aiLeverageRatePct,
+    };
+  });
+
+  const overall = summarize(analyzed);
+  const thisWeek = weekly[weekly.length - 1];
 
   return {
     key,
     wipByStatus,
     wipTotal: wipIssues.length,
-    cycleTimeDays: {
-      avg: withCycleTime.length ? Number((withCycleTime.reduce((a, b) => a + b, 0) / withCycleTime.length).toFixed(1)) : null,
-      median: withCycleTime.length ? Number(median(withCycleTime).toFixed(1)) : null,
-      sampleSize: withCycleTime.length,
-    },
-    throughput7d: resolved7d,
-    throughput30d: resolved30d,
-    qualityLoopbackRatePct: withTransitions.length ? Number(((regressed.length / withTransitions.length) * 100).toFixed(1)) : null,
-    aiLeverageRatePct: resolved30d ? Number(((aiTagged30d / resolved30d) * 100).toFixed(1)) : null,
     openBlockers,
+    blockedIssues,
+    windowDays: WINDOW_DAYS,
+    cycleTimeDays: { avg: overall.cycleTimeAvg, median: overall.cycleTimeMedian, sampleSize: overall.cycleTimeSampleSize },
+    leadTimeDays: { avg: overall.leadTimeAvg, median: overall.leadTimeMedian, sampleSize: overall.leadTimeSampleSize },
+    throughput7d: thisWeek ? thisWeek.throughput : 0,
+    throughputWindowTotal: overall.throughput,
+    throughputAvgPerWeek: round1(overall.throughput / 8),
+    qualityLoopbackRatePct: overall.qualityLoopbackRatePct,
+    qualityLoopbackCount: overall.qualityLoopbackCount,
+    qualityLoopbackSampleSize: overall.qualityLoopbackSampleSize,
+    aiLeverageRatePct: overall.aiLeverageRatePct,
+    weekly,
   };
 }
 
@@ -205,6 +324,7 @@ async function main() {
 
   const out = {
     generatedAt: new Date().toISOString(),
+    windowDays: WINDOW_DAYS,
     groupingNote:
       "Metrics are grouped by real Jira project (no Pod/DM field exists yet). Update PROJECTS + grouping in fetch-jira-data.js once Pods/DMs are tracked in Jira.",
     projects,
@@ -215,7 +335,7 @@ async function main() {
     },
   };
 
-  require("fs").writeFileSync("data.json", JSON.stringify(out, null, 2));
+  require("fs").writeFileSync("v2/data.json", JSON.stringify(out, null, 2));
   console.log("Wrote data.json");
 }
 
