@@ -1,7 +1,7 @@
 /**
  * fetch-jira-data.js  (v2)
  * Place this file at: scripts/fetch-jira-data.js in the GitHub repo.
- *
+ *v2
  * Pulls live delivery metrics from Jira and writes data.json for the
  * Delivery Dashboard (index.html) to read.
  *
@@ -335,7 +335,7 @@ async function main() {
     },
   };
 
-  require("fs").writeFileSync("v2/data.json", JSON.stringify(out, null, 2));
+  require("fs").writeFileSync("/data.json", JSON.stringify(out, null, 2));
   console.log("Wrote data.json");
 }
 
