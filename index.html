@@ -1,4 +1,4 @@
-x · HTML
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,28 +14,24 @@ x · HTML
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 14px; min-height: 100vh; }
-    header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 28px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; flex-wrap: wrap; gap: 10px; }
+    header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 28px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
     .header-left h1 { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; }
     .header-left span { font-size: 12px; color: var(--muted); margin-left: 10px; }
     .live-badge { background: #10331f; color: var(--green); font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; border: 1px solid #1f5c37; }
-    .header-right { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    .header-right { display: flex; gap: 12px; align-items: center; }
     .date-label { color: var(--muted); font-size: 12px; }
-    select#projectFilter {
-      background: var(--surface2); color: var(--text); border: 1px solid var(--border); border-radius: 8px;
-      padding: 7px 12px; font-size: 13px; font-weight: 600; cursor: pointer;
-    }
     .tabs { display: flex; gap: 0; background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 28px; overflow-x: auto; }
     .tab { padding: 12px 18px; cursor: pointer; font-size: 13px; font-weight: 500; color: var(--muted); border-bottom: 2px solid transparent; transition: all 0.15s; white-space: nowrap; }
     .tab:hover { color: var(--text); }
     .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
     main { padding: 24px 28px; max-width: 1400px; }
-    .summary-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 24px; }
+    .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
     .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
     .card-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); margin-bottom: 8px; }
-    .card-value { font-size: 26px; font-weight: 700; line-height: 1; }
+    .card-value { font-size: 28px; font-weight: 700; line-height: 1; }
     .card-sub { font-size: 12px; color: var(--muted); margin-top: 6px; }
     .card.green .card-value { color: var(--green); } .card.yellow .card-value { color: var(--yellow); }
-    .card.red .card-value { color: var(--red); } .card.blue .card-value { color: var(--blue); } .card.purple .card-value { color: var(--purple); }
+    .card.red .card-value { color: var(--red); } .card.blue .card-value { color: var(--blue); }
     .two-col { display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; margin-bottom: 24px; }
     .three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
     .chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
@@ -49,7 +45,7 @@ x · HTML
     .project-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
     .project-name { font-weight: 700; font-size: 15px; }
     .project-key { font-size: 11px; color: var(--muted); background: var(--surface2); padding: 2px 8px; border-radius: 6px; }
-    .project-stat-row { display: flex; gap: 14px; margin-bottom: 10px; flex-wrap: wrap; }
+    .project-stat-row { display: flex; gap: 14px; margin-bottom: 10px; }
     .p-stat-val { font-size: 18px; font-weight: 700; }
     .p-stat-lbl { font-size: 10px; color: var(--muted); text-transform: uppercase; }
     .wip-list { font-size: 12px; color: var(--muted); }
@@ -63,79 +59,69 @@ x · HTML
   </style>
 </head>
 <body>
- 
+
 <header>
   <div class="header-left">
-    <h1>Delivery Dashboard <span>— Live from Jira · rolling 8 weeks</span></h1>
+    <h1>Delivery Dashboard <span>— Live from Jira</span></h1>
   </div>
   <div class="header-right">
-    <select id="projectFilter" onchange="onProjectChange()"></select>
     <span class="live-badge" id="liveBadge">● Loading…</span>
     <span class="date-label" id="dateLabel"></span>
   </div>
 </header>
- 
+
 <div class="tabs">
   <div class="tab active" onclick="showTab('overview', event)">Overview</div>
-  <div class="tab" onclick="showTab('cycle-time', event)">Cycle &amp; Lead Time</div>
+  <div class="tab" onclick="showTab('cycle-time', event)">Cycle Time</div>
   <div class="tab" onclick="showTab('wip', event)">WIP Status</div>
   <div class="tab" onclick="showTab('portfolio', event)">Project Portfolio</div>
   <div class="tab" onclick="showTab('five-signals', event)">Five Signals</div>
 </div>
- 
+
 <main>
   <div id="errorBanner" class="error-banner" style="display:none"></div>
   <div class="note-card">
-    Grouped by real Jira project (INV, APCOM, EMP, CORE, MOBILE, BOA, EXP, HR) — there is no Pod/Delivery Manager field in Jira yet. All metrics are a rolling 8-week (56-day) window ending today. Use the project dropdown above to switch between a cross-project comparison ("All Projects") and a single project's week-by-week trend.
+    Grouped by real Jira project (INV, APCOM, EMP, CORE, MOBILE, BOA, EXP, HR) — there is no Pod/Delivery Manager field in Jira yet. This view will switch to Pod/DM grouping once that structure exists.
   </div>
- 
+
   <!-- OVERVIEW -->
   <div id="tab-overview" class="tab-content active">
     <div class="summary-grid" id="overviewCards"></div>
     <div class="two-col">
       <div class="chart-card">
-        <h3 id="cycleTimeChartTitle">Cycle Time by Project</h3>
-        <p id="cycleTimeChartSub">Avg days, first "In Progress" transition to resolution · rolling 8 weeks</p>
+        <h3>Cycle Time by Project</h3>
+        <p>Days from first "In Progress" transition to resolution (last 30 days) · Red line = 8-day ceiling</p>
         <canvas id="cycleTimeChart"></canvas>
       </div>
       <div class="chart-card">
-        <h3 id="wipOverviewChartTitle">Current WIP by Project</h3>
-        <p>Open issues (not Done) per project — always as-of-now, not part of the 8-week window</p>
+        <h3>Current WIP by Project</h3>
+        <p>Open issues (not Done) per project</p>
         <canvas id="wipOverviewChart"></canvas>
       </div>
     </div>
-    <div class="chart-card" style="margin-bottom:24px">
-      <h3 id="loopbackChartTitle">Quality Loop-Back Rate</h3>
-      <p id="loopbackChartSub">% of transitioned issues that regressed to an earlier stage · rolling 8 weeks</p>
+    <div class="chart-card">
+      <h3>Quality Loop-Back Rate</h3>
+      <p>% of transitioned issues (last 30 days) that regressed to an earlier stage</p>
       <canvas id="loopbackChart"></canvas>
     </div>
-    <div class="chart-card">
-      <h3 id="depsTitle">Dependencies &amp; Blockers</h3>
-      <p id="depsSub">Open issues currently blocked, and what they're waiting on (pulled from Jira issue links)</p>
-      <table class="flow-table" id="depsTable">
-        <thead><tr><th id="depsProjectCol">Project</th><th>Issue</th><th>Status</th><th>Blocked By</th></tr></thead>
-        <tbody></tbody>
-      </table>
-      <p id="depsEmpty" style="display:none;margin-top:8px">No open blockers right now 🎉</p>
-    </div>
   </div>
- 
+
   <!-- CYCLE TIME -->
   <div id="tab-cycle-time" class="tab-content">
     <div class="chart-card" style="margin-bottom:20px">
-      <h3 id="cycleAllChartTitle">Cycle Time &amp; Lead Time — All Projects</h3>
-      <p id="cycleAllChartSub">Avg days · rolling 8 weeks</p>
+      <h3>Cycle Time — All Projects</h3>
+      <p>Avg days, Ready → Done (last 30 days) · Red line = 8-day ceiling</p>
       <canvas id="cycleAllChart"></canvas>
     </div>
-    <div class="chart-card" style="margin-bottom:20px">
+    <div class="chart-card">
       <h3>Detail</h3>
       <table class="flow-table" id="cycleTable">
-        <thead><tr><th>Project</th><th>Cycle Avg (d)</th><th>Cycle Median (d)</th><th>Lead Avg (d)</th><th>Lead Median (d)</th><th>Sample Size</th></tr></thead>
+        <thead><tr><th>Project</th><th>Avg (d)</th><th>Median (d)</th><th>Sample Size</th></tr></thead>
         <tbody></tbody>
       </table>
     </div>
   </div>
- 
+
   <!-- WIP -->
   <div id="tab-wip" class="tab-content">
     <div class="chart-card" style="margin-bottom:20px">
@@ -146,12 +132,12 @@ x · HTML
       <div class="project-grid" id="wipGrid"></div>
     </div>
   </div>
- 
+
   <!-- PORTFOLIO -->
   <div id="tab-portfolio" class="tab-content">
     <div class="project-grid" id="portfolioGrid"></div>
   </div>
- 
+
   <!-- FIVE SIGNALS -->
   <div id="tab-five-signals" class="tab-content">
     <div class="note-card">
@@ -159,55 +145,43 @@ x · HTML
     </div>
     <div class="three-col">
       <div class="chart-card">
-        <h3 id="throughputChartTitle">Throughput</h3>
-        <p id="throughputChartSub">Issues resolved, per project · rolling 8 weeks</p>
+        <h3>Throughput</h3>
+        <p>Issues resolved, last 7 days, per project</p>
         <canvas id="throughputChart"></canvas>
       </div>
       <div class="chart-card">
-        <h3 id="qualityChartTitle">Quality</h3>
-        <p id="qualityChartSub">Loop-back rate (%) per project · rolling 8 weeks</p>
+        <h3>Quality</h3>
+        <p>Loop-back rate (%) per project</p>
         <canvas id="qualityChart"></canvas>
       </div>
       <div class="chart-card">
-        <h3 id="aiChartTitle">AI Leverage</h3>
-        <p id="aiChartSub">% of resolved issues tagged with an AI/Claude component · rolling 8 weeks</p>
+        <h3>AI Leverage</h3>
+        <p>% of resolved issues tagged with an AI/Claude component</p>
         <canvas id="aiChart"></canvas>
       </div>
     </div>
   </div>
 </main>
- 
+
 <script>
 document.getElementById('dateLabel').textContent = new Date().toLocaleDateString('en-US', {weekday:'short',month:'short',day:'numeric',year:'numeric'});
- 
+
 function showTab(name, event) {
   document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.getElementById('tab-' + name).classList.add('active');
   event.currentTarget.classList.add('active');
 }
- 
+
 const COLORS = ['#38bdf8','#6c63ff','#22c55e','#f59e0b','#a78bfa','#ef4444','#14b8a6','#eab308'];
- 
-// Chart.js defaults to black text/gridlines, which disappears against this dark
-// theme. Set readable light-grey/translucent defaults once, globally.
-Chart.defaults.color = '#c7cedb';
-Chart.defaults.borderColor = 'rgba(255,255,255,0.08)';
-Chart.defaults.plugins.legend.labels.color = '#c7cedb';
- 
 const charts = {};
 function makeChart(id, config) {
   if (charts[id]) charts[id].destroy();
   charts[id] = new Chart(document.getElementById(id), config);
 }
+
 function fmt(n, suffix = '') { return (n === null || n === undefined) ? '—' : `${n}${suffix}`; }
- 
-let DATA = null;
- 
-function onProjectChange() {
-  render(document.getElementById('projectFilter').value);
-}
- 
+
 async function load() {
   let data;
   try {
@@ -221,8 +195,7 @@ async function load() {
     document.getElementById('liveBadge').textContent = '● No data';
     return;
   }
- 
-  DATA = data;
+
   const projects = data.projects.filter(p => !p.error);
   const failed = data.projects.filter(p => p.error);
   if (failed.length) {
@@ -230,263 +203,92 @@ async function load() {
     document.getElementById('errorBanner').textContent =
       'Some projects failed to load: ' + failed.map(f => `${f.key} (${f.error})`).join('; ');
   }
- 
+
   const genAt = new Date(data.generatedAt);
   document.getElementById('liveBadge').textContent = '● Live · updated ' + genAt.toLocaleString();
- 
-  const sel = document.getElementById('projectFilter');
-  sel.innerHTML = '<option value="__all__">All Projects</option>' +
-    projects.map(p => `<option value="${p.key}">${p.key}</option>`).join('');
- 
-  render('__all__');
-}
- 
-function render(selection) {
-  if (!DATA) return;
-  const projects = DATA.projects.filter(p => !p.error);
- 
-  if (selection === '__all__') {
-    renderAllProjects(projects);
-  } else {
-    const p = projects.find(pr => pr.key === selection);
-    if (p) renderSingleProject(p);
-  }
-}
- 
-function renderAllProjects(projects) {
+
   const labels = projects.map(p => p.key);
- 
-  // Overview cards
+
+  // ---- Overview cards ----
   const cycleTimes = projects.map(p => p.cycleTimeDays.avg).filter(v => v !== null);
-  const leadTimes = projects.map(p => p.leadTimeDays.avg).filter(v => v !== null);
   const avgCycle = cycleTimes.length ? (cycleTimes.reduce((a,b)=>a+b,0)/cycleTimes.length).toFixed(1) : '—';
-  const avgLead = leadTimes.length ? (leadTimes.reduce((a,b)=>a+b,0)/leadTimes.length).toFixed(1) : '—';
   const totalWip = projects.reduce((a,p) => a + (p.wipTotal || 0), 0);
   const totalBlockers = projects.reduce((a,p) => a + (p.openBlockers || 0), 0);
   const atRisk = projects.filter(p => p.cycleTimeDays.avg !== null && p.cycleTimeDays.avg > 8).length;
- 
+
   document.getElementById('overviewCards').innerHTML = `
-    <div class="card blue"><div class="card-label">Avg Cycle Time</div><div class="card-value">${avgCycle}<span style="font-size:14px;font-weight:400"> d</span></div><div class="card-sub">Rolling 8 weeks</div></div>
-    <div class="card purple"><div class="card-label">Avg Lead Time</div><div class="card-value">${avgLead}<span style="font-size:14px;font-weight:400"> d</span></div><div class="card-sub">Created → Done</div></div>
+    <div class="card blue"><div class="card-label">Avg Cycle Time</div><div class="card-value">${avgCycle}<span style="font-size:16px;font-weight:400"> days</span></div><div class="card-sub">Across ${projects.length} projects</div></div>
     <div class="card"><div class="card-label">Total WIP</div><div class="card-value">${totalWip}</div><div class="card-sub">Open issues, all projects</div></div>
     <div class="card yellow"><div class="card-label">Open Blockers</div><div class="card-value">${totalBlockers}</div><div class="card-sub">Tagged "Blocked" component</div></div>
     <div class="card red"><div class="card-label">Projects at Risk</div><div class="card-value">${atRisk}</div><div class="card-sub">Avg cycle time &gt; 8 days</div></div>
   `;
- 
-  document.getElementById('cycleTimeChartTitle').textContent = 'Cycle Time by Project';
-  document.getElementById('cycleTimeChartSub').textContent = 'Avg days, first "In Progress" transition to resolution · rolling 8 weeks';
+
   makeChart('cycleTimeChart', {
     type: 'bar',
     data: { labels, datasets: [{ label: 'Avg Cycle Time (days)', data: projects.map(p => p.cycleTimeDays.avg), backgroundColor: '#38bdf8' }] },
     options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
   });
- 
+
   makeChart('wipOverviewChart', {
     type: 'bar',
     data: { labels, datasets: [{ label: 'Open WIP', data: projects.map(p => p.wipTotal), backgroundColor: '#6c63ff' }] },
     options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
   });
- 
-  document.getElementById('loopbackChartTitle').textContent = 'Quality Loop-Back Rate';
-  document.getElementById('loopbackChartSub').textContent = '% of transitioned issues that regressed to an earlier stage · rolling 8 weeks';
+
   makeChart('loopbackChart', {
     type: 'bar',
     data: { labels, datasets: [{ label: 'Loop-back rate (%)', data: projects.map(p => p.qualityLoopbackRatePct), backgroundColor: '#f59e0b' }] },
-    options: { plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => {
-      const p = projects[ctx.dataIndex];
-      return `${fmt(p.qualityLoopbackRatePct,'%')} (${p.qualityLoopbackCount ?? 0} of ${p.qualityLoopbackSampleSize ?? 0})`;
-    } } } }, scales: { y: { beginAtZero: true, max: 100 } } }
+    options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 100 } } }
   });
- 
-  // Dependencies & Blockers — cross-project, so show the Project column
-  document.getElementById('depsProjectCol').style.display = '';
-  renderDepsTable(projects.flatMap(p => (p.blockedIssues || []).map(b => ({ ...b, project: p.key }))), true);
- 
-  // Cycle & Lead Time tab
-  document.getElementById('cycleAllChartTitle').textContent = 'Cycle Time & Lead Time — All Projects';
-  document.getElementById('cycleAllChartSub').textContent = 'Avg days · rolling 8 weeks';
+
+  // ---- Cycle Time tab ----
   makeChart('cycleAllChart', {
     type: 'bar',
-    data: { labels, datasets: [
-      { label: 'Cycle Time (avg days)', data: projects.map(p => p.cycleTimeDays.avg), backgroundColor: '#38bdf8' },
-      { label: 'Lead Time (avg days)', data: projects.map(p => p.leadTimeDays.avg), backgroundColor: '#a78bfa' },
-    ] },
-    options: { scales: { y: { beginAtZero: true } } }
+    data: { labels, datasets: [{ label: 'Avg Cycle Time (days)', data: projects.map(p => p.cycleTimeDays.avg), backgroundColor: labels.map((_,i)=>COLORS[i%COLORS.length]) }] },
+    options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
   });
   document.querySelector('#cycleTable tbody').innerHTML = projects.map(p => `
-    <tr><td>${p.key}</td><td>${fmt(p.cycleTimeDays.avg)}</td><td>${fmt(p.cycleTimeDays.median)}</td><td>${fmt(p.leadTimeDays.avg)}</td><td>${fmt(p.leadTimeDays.median)}</td><td>${p.cycleTimeDays.sampleSize}</td></tr>
+    <tr><td>${p.key}</td><td>${fmt(p.cycleTimeDays.avg)}</td><td>${fmt(p.cycleTimeDays.median)}</td><td>${p.cycleTimeDays.sampleSize}</td></tr>
   `).join('');
- 
-  // WIP tab
+
+  // ---- WIP tab ----
   document.getElementById('wipGrid').innerHTML = projects.map(p => `
     <div class="project-card">
       <div class="project-header"><div class="project-name">${p.key}</div><div class="project-key">${p.wipTotal} open</div></div>
       <div class="wip-list">${Object.entries(p.wipByStatus).map(([status,count]) => `${status}: <span>${count}</span>`).join('<br>') || 'No open issues'}</div>
     </div>
   `).join('');
- 
-  // Portfolio tab
+
+  // ---- Portfolio tab ----
   document.getElementById('portfolioGrid').innerHTML = projects.map(p => `
     <div class="project-card">
       <div class="project-header"><div class="project-name">${p.key}</div><div class="project-key">${p.wipTotal} WIP</div></div>
       <div class="project-stat-row">
-        <div><div class="p-stat-val" style="color:${p.cycleTimeDays.avg > 8 ? 'var(--red)' : 'var(--text)'}">${fmt(p.cycleTimeDays.avg)}</div><div class="p-stat-lbl">Cycle (d)</div></div>
-        <div><div class="p-stat-val">${fmt(p.leadTimeDays.avg)}</div><div class="p-stat-lbl">Lead (d)</div></div>
-        <div><div class="p-stat-val">${fmt(p.qualityLoopbackRatePct,'%')}</div><div class="p-stat-lbl">Loop-back (${p.qualityLoopbackCount ?? 0}/${p.qualityLoopbackSampleSize ?? 0})</div></div>
+        <div><div class="p-stat-val" style="color:${p.cycleTimeDays.avg > 8 ? 'var(--red)' : 'var(--text)'}">${fmt(p.cycleTimeDays.avg)}</div><div class="p-stat-lbl">Avg Cycle (d)</div></div>
+        <div><div class="p-stat-val">${fmt(p.qualityLoopbackRatePct,'%')}</div><div class="p-stat-lbl">Loop-back</div></div>
         <div><div class="p-stat-val" style="color:${p.openBlockers > 0 ? 'var(--yellow)' : 'var(--green)'}">${p.openBlockers}</div><div class="p-stat-lbl">Blockers</div></div>
       </div>
     </div>
   `).join('');
- 
-  // Five Signals tab
-  document.getElementById('throughputChartTitle').textContent = 'Throughput';
-  document.getElementById('throughputChartSub').textContent = 'Issues resolved, per project · rolling 8 weeks';
+
+  // ---- Five Signals tab ----
   makeChart('throughputChart', {
     type: 'bar',
-    data: { labels, datasets: [{ label: 'Resolved (8 wks)', data: projects.map(p => p.throughputWindowTotal), backgroundColor: '#22c55e' }] },
+    data: { labels, datasets: [{ label: 'Resolved (7d)', data: projects.map(p => p.throughput7d), backgroundColor: '#22c55e' }] },
     options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
   });
-  document.getElementById('qualityChartTitle').textContent = 'Quality';
-  document.getElementById('qualityChartSub').textContent = 'Loop-back rate (%) per project · rolling 8 weeks';
   makeChart('qualityChart', {
     type: 'bar',
     data: { labels, datasets: [{ label: 'Loop-back %', data: projects.map(p => p.qualityLoopbackRatePct), backgroundColor: '#f59e0b' }] },
-    options: { plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => {
-      const p = projects[ctx.dataIndex];
-      return `${fmt(p.qualityLoopbackRatePct,'%')} (${p.qualityLoopbackCount ?? 0} of ${p.qualityLoopbackSampleSize ?? 0})`;
-    } } } }, scales: { y: { beginAtZero: true, max: 100 } } }
+    options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 100 } } }
   });
-  document.getElementById('aiChartTitle').textContent = 'AI Leverage';
-  document.getElementById('aiChartSub').textContent = '% of resolved issues tagged with an AI/Claude component · rolling 8 weeks';
   makeChart('aiChart', {
     type: 'bar',
     data: { labels, datasets: [{ label: 'AI Leverage %', data: projects.map(p => p.aiLeverageRatePct), backgroundColor: '#a78bfa' }] },
     options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 100 } } }
   });
 }
- 
-function renderDepsTable(rows, showProject) {
-  const th = document.getElementById('depsProjectCol');
-  th.style.display = showProject ? '' : 'none';
-  const tbody = document.querySelector('#depsTable tbody');
-  const empty = document.getElementById('depsEmpty');
-  if (!rows.length) {
-    tbody.innerHTML = '';
-    document.getElementById('depsTable').style.display = 'none';
-    empty.style.display = 'block';
-    return;
-  }
-  document.getElementById('depsTable').style.display = '';
-  empty.style.display = 'none';
-  tbody.innerHTML = rows.map(r => {
-    const blockedByText = r.blockedBy && r.blockedBy.length
-      ? r.blockedBy.map(b => `${b.key}${b.status ? ` (${b.status})` : ''}`).join(', ')
-      : '<span style="color:var(--muted)">Tagged "Blocked" — no linked issue on record</span>';
-    return `<tr>${showProject ? `<td>${r.project}</td>` : ''}<td>${r.key}</td><td>${r.status || '—'}</td><td>${blockedByText}</td></tr>`;
-  }).join('');
-}
- 
-function renderSingleProject(p) {
-  const weekly = p.weekly || [];
-  const labels = weekly.map(w => w.label);
- 
-  document.getElementById('overviewCards').innerHTML = `
-    <div class="card blue"><div class="card-label">Avg Cycle Time</div><div class="card-value">${fmt(p.cycleTimeDays.avg)}<span style="font-size:14px;font-weight:400"> d</span></div><div class="card-sub">${p.key} · rolling 8 weeks</div></div>
-    <div class="card purple"><div class="card-label">Avg Lead Time</div><div class="card-value">${fmt(p.leadTimeDays.avg)}<span style="font-size:14px;font-weight:400"> d</span></div><div class="card-sub">Created → Done</div></div>
-    <div class="card"><div class="card-label">Current WIP</div><div class="card-value">${p.wipTotal}</div><div class="card-sub">Open issues, right now</div></div>
-    <div class="card yellow"><div class="card-label">Open Blockers</div><div class="card-value">${p.openBlockers}</div><div class="card-sub">Tagged "Blocked" component</div></div>
-    <div class="card ${p.cycleTimeDays.avg > 8 ? 'red' : 'green'}"><div class="card-label">Risk Status</div><div class="card-value">${p.cycleTimeDays.avg > 8 ? 'At Risk' : 'OK'}</div><div class="card-sub">Cycle time vs 8-day ceiling</div></div>
-  `;
- 
-  document.getElementById('cycleTimeChartTitle').textContent = `${p.key} — Cycle & Lead Time Trend`;
-  document.getElementById('cycleTimeChartSub').textContent = 'Weekly avg days, oldest → newest (8 weeks)';
-  makeChart('cycleTimeChart', {
-    type: 'line',
-    data: { labels, datasets: [
-      { label: 'Cycle Time (avg days)', data: weekly.map(w => w.cycleTimeAvg), borderColor: '#38bdf8', backgroundColor: '#38bdf8', tension: 0.3 },
-      { label: 'Lead Time (avg days)', data: weekly.map(w => w.leadTimeAvg), borderColor: '#a78bfa', backgroundColor: '#a78bfa', tension: 0.3 },
-    ] },
-    options: { scales: { y: { beginAtZero: true } } }
-  });
- 
-  makeChart('wipOverviewChart', {
-    type: 'bar',
-    data: { labels: Object.keys(p.wipByStatus), datasets: [{ label: 'Open issues', data: Object.values(p.wipByStatus), backgroundColor: '#6c63ff' }] },
-    options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
-  });
- 
-  document.getElementById('loopbackChartTitle').textContent = `${p.key} — Quality Loop-Back Rate Trend`;
-  document.getElementById('loopbackChartSub').textContent = 'Weekly %, oldest → newest (8 weeks)';
-  makeChart('loopbackChart', {
-    type: 'line',
-    data: { labels, datasets: [{ label: 'Loop-back rate (%)', data: weekly.map(w => w.qualityLoopbackRatePct), borderColor: '#f59e0b', backgroundColor: '#f59e0b', tension: 0.3 }] },
-    options: { plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => {
-      const w = weekly[ctx.dataIndex];
-      return `${fmt(w.qualityLoopbackRatePct,'%')} (${w.qualityLoopbackCount ?? 0} of ${w.qualityLoopbackSampleSize ?? 0})`;
-    } } } }, scales: { y: { beginAtZero: true, max: 100 } } }
-  });
- 
-  renderDepsTable((p.blockedIssues || []).map(b => ({ ...b, project: p.key })), false);
- 
-  document.getElementById('cycleAllChartTitle').textContent = `${p.key} — Cycle & Lead Time Trend`;
-  document.getElementById('cycleAllChartSub').textContent = 'Weekly avg days, oldest → newest (8 weeks)';
-  makeChart('cycleAllChart', {
-    type: 'line',
-    data: { labels, datasets: [
-      { label: 'Cycle Time (avg days)', data: weekly.map(w => w.cycleTimeAvg), borderColor: '#38bdf8', backgroundColor: '#38bdf8', tension: 0.3 },
-      { label: 'Lead Time (avg days)', data: weekly.map(w => w.leadTimeAvg), borderColor: '#a78bfa', backgroundColor: '#a78bfa', tension: 0.3 },
-    ] },
-    options: { scales: { y: { beginAtZero: true } } }
-  });
-  document.querySelector('#cycleTable tbody').innerHTML = weekly.map(w => `
-    <tr><td>${w.label}</td><td>${fmt(w.cycleTimeAvg)}</td><td>—</td><td>${fmt(w.leadTimeAvg)}</td><td>—</td><td>${w.throughput}</td></tr>
-  `).join('');
- 
-  document.getElementById('wipGrid').innerHTML = `
-    <div class="project-card">
-      <div class="project-header"><div class="project-name">${p.key}</div><div class="project-key">${p.wipTotal} open</div></div>
-      <div class="wip-list">${Object.entries(p.wipByStatus).map(([status,count]) => `${status}: <span>${count}</span>`).join('<br>') || 'No open issues'}</div>
-    </div>
-  `;
- 
-  document.getElementById('portfolioGrid').innerHTML = `
-    <div class="project-card">
-      <div class="project-header"><div class="project-name">${p.key}</div><div class="project-key">${p.wipTotal} WIP</div></div>
-      <div class="project-stat-row">
-        <div><div class="p-stat-val" style="color:${p.cycleTimeDays.avg > 8 ? 'var(--red)' : 'var(--text)'}">${fmt(p.cycleTimeDays.avg)}</div><div class="p-stat-lbl">Cycle (d)</div></div>
-        <div><div class="p-stat-val">${fmt(p.leadTimeDays.avg)}</div><div class="p-stat-lbl">Lead (d)</div></div>
-        <div><div class="p-stat-val">${fmt(p.qualityLoopbackRatePct,'%')}</div><div class="p-stat-lbl">Loop-back (${p.qualityLoopbackCount ?? 0}/${p.qualityLoopbackSampleSize ?? 0})</div></div>
-        <div><div class="p-stat-val" style="color:${p.openBlockers > 0 ? 'var(--yellow)' : 'var(--green)'}">${p.openBlockers}</div><div class="p-stat-lbl">Blockers</div></div>
-      </div>
-    </div>
-  `;
- 
-  document.getElementById('throughputChartTitle').textContent = `${p.key} — Throughput Trend`;
-  document.getElementById('throughputChartSub').textContent = 'Issues resolved per week (8 weeks)';
-  makeChart('throughputChart', {
-    type: 'line',
-    data: { labels, datasets: [{ label: 'Resolved', data: weekly.map(w => w.throughput), borderColor: '#22c55e', backgroundColor: '#22c55e', tension: 0.3 }] },
-    options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
-  });
-  document.getElementById('qualityChartTitle').textContent = `${p.key} — Quality Trend`;
-  document.getElementById('qualityChartSub').textContent = 'Loop-back rate (%) per week (8 weeks)';
-  makeChart('qualityChart', {
-    type: 'line',
-    data: { labels, datasets: [{ label: 'Loop-back %', data: weekly.map(w => w.qualityLoopbackRatePct), borderColor: '#f59e0b', backgroundColor: '#f59e0b', tension: 0.3 }] },
-    options: { plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => {
-      const w = weekly[ctx.dataIndex];
-      return `${fmt(w.qualityLoopbackRatePct,'%')} (${w.qualityLoopbackCount ?? 0} of ${w.qualityLoopbackSampleSize ?? 0})`;
-    } } } }, scales: { y: { beginAtZero: true, max: 100 } } }
-  });
-  document.getElementById('aiChartTitle').textContent = `${p.key} — AI Leverage Trend`;
-  document.getElementById('aiChartSub').textContent = '% of resolved issues tagged with an AI/Claude component, per week (8 weeks)';
-  makeChart('aiChart', {
-    type: 'line',
-    data: { labels, datasets: [{ label: 'AI Leverage %', data: weekly.map(w => w.aiLeverageRatePct), borderColor: '#a78bfa', backgroundColor: '#a78bfa', tension: 0.3 }] },
-    options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 100 } } }
-  });
-}
- 
+
 load();
 </script>
 </body>
