@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-14T22:03:51.317Z",
+  "generatedAt": "2026-07-15T02:53:45.943Z",
   "groupingNote": "Metrics are grouped by real Jira project (no Pod/DM field exists yet). Update PROJECTS + grouping in fetch-jira-data.js once Pods/DMs are tracked in Jira.",
   "projects": [
     {
@@ -31,25 +31,22 @@
         "In QA": 2,
         "Ready for QA": 8,
         "Backlog": 23,
-        "In Development": 3,
-        "Ready for Code Review": 1,
+        "In Development": 4,
         "To Do": 7,
-        "Ready for Acceptance": 3,
         "Ready for Development": 14,
         "In Progress": 18,
-        "Estimate": 1,
-        "Acceptance": 1
+        "Estimate": 1
       },
-      "wipTotal": 81,
+      "wipTotal": 77,
       "cycleTimeDays": {
-        "avg": 14.4,
-        "median": 10.4,
-        "sampleSize": 54
+        "avg": 16.3,
+        "median": 10.9,
+        "sampleSize": 58
       },
-      "throughput7d": 4,
-      "throughput30d": 56,
-      "qualityLoopbackRatePct": 28.6,
-      "aiLeverageRatePct": 1.8,
+      "throughput7d": 8,
+      "throughput30d": 60,
+      "qualityLoopbackRatePct": 33.3,
+      "aiLeverageRatePct": 1.7,
       "openBlockers": 0
     },
     {
@@ -78,11 +75,11 @@
     {
       "key": "CORE",
       "wipByStatus": {
-        "Ready for Development": 33,
+        "Ready for Development": 32,
         "Ready for QA": 22,
         "In QA": 4,
         "Backlog": 112,
-        "In Development": 4,
+        "In Development": 5,
         "To Do": 26,
         "Estimate": 3,
         "Ready for Code Review": 1,
@@ -132,8 +129,7 @@
     {
       "key": "BOA",
       "wipByStatus": {
-        "In QA": 1,
-        "Ready for Acceptance": 10,
+        "Ready for Acceptance": 11,
         "In Progress": 11,
         "Ready for QA": 9,
         "Backlog": 107,
@@ -157,27 +153,28 @@
     {
       "key": "EXP",
       "wipByStatus": {
+        "Ready for Development": 3,
         "Estimate": 5,
-        "Ready for Development": 2,
         "In Development": 2,
         "Ready for QA": 1,
         "Backlog": 20,
         "To Do": 24,
-        "Ready for Acceptance": 5,
+        "Ready for Acceptance": 2,
+        "Acceptance": 2,
         "In Progress": 7,
         "Design Review": 1,
         "In QA": 2
       },
       "wipTotal": 69,
       "cycleTimeDays": {
-        "avg": 13.9,
-        "median": 12.8,
-        "sampleSize": 29
+        "avg": 14.3,
+        "median": 13.2,
+        "sampleSize": 30
       },
-      "throughput7d": 6,
-      "throughput30d": 30,
-      "qualityLoopbackRatePct": 56.7,
-      "aiLeverageRatePct": 3.3,
+      "throughput7d": 7,
+      "throughput30d": 31,
+      "qualityLoopbackRatePct": 58.1,
+      "aiLeverageRatePct": 3.2,
       "openBlockers": 0
     },
     {
