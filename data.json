@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-18T08:01:30.888Z",
+  "generatedAt": "2026-07-18T10:22:46.595Z",
   "groupingNote": "Metrics are grouped by real Jira project (no Pod/DM field exists yet). Update PROJECTS + grouping in fetch-jira-data.js once Pods/DMs are tracked in Jira.",
   "projects": [
     {
